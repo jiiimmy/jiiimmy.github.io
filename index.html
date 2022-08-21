@@ -185,7 +185,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="本篇博客用来记录工作中常用的git指令"><a href="#本篇博客用来记录工作中常用的git指令" class="headerlink" title="本篇博客用来记录工作中常用的git指令"></a>本篇博客用来记录工作中常用的git指令</h1><h2 id="git-stash-常用指令"><a href="#git-stash-常用指令" class="headerlink" title="git stash 常用指令"></a>git stash 常用指令</h2><ul>
+        <h1 id="本篇博客用来记录工作中常用的git指令"><a href="#本篇博客用来记录工作中常用的git指令" class="headerlink" title="本篇博客用来记录工作中常用的git指令"></a>本篇博客用来记录工作中常用的git指令</h1><h2 id="git-stash-常用指令"><a href="#git-stash-常用指令" class="headerlink" title="git stash 常用指令"></a>git stash 常用指令</h2><p>应用场景：当在一个分支下进行开发，但是代码还没有完全写完，</p>
+<ul>
 <li>把当前所有改动暂存在stash栈中,并在执行暂存时添加备注，方便查找；只用git stash也可以，但很久没用时会忘记这个暂存修改了什么东西<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash save <span class="string">&quot;save message&quot;</span></span><br></pre></td></tr></table></figure></li>
 <li>查看当前栈所有的stash存储<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash list</span><br></pre></td></tr></table></figure></li>
 <li>查看stash栈顶哪些文件做了改动，默认show第一个存储,如果要显示其他存储，后面加stash@{$num}，比如第二个:<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git stash show</span><br><span class="line">git stash show stash@&#123;<span class="number">1</span>&#125;</span><br></pre></td></tr></table></figure></li>
@@ -249,9 +250,6 @@
     	<div class="footer-left">
     		&copy; 2022 Jimmy
     	</div>
-      	<div class="footer-right">
-      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
-      	</div>
     </div>
   </div>
 </footer>
