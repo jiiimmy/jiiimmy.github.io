@@ -3,7 +3,7 @@
 menu:
   主页: /
   随笔: /tags/随笔/
-  源代码阅读: /archives/index.html
+  归档: /archives/index.html
    
 # Site
 title: Jimmy的博客
@@ -39,6 +39,7 @@ rss: /atom.xml
 # 是否需要修改 root 路径
 # 如果您的网站存放在子目录中，例如 http://yoursite.com/blog，
 # 请将您的 url 设为 http://yoursite.com/blog 并把 root 设为 /blog/。
+# url: https://github.com/jiiimmy/jiiimmy.github.io/
 root: /
 
 excerpt_description: true
@@ -55,11 +56,11 @@ open_in_new: false
 
 # 打赏
 # 打赏type设定：0-关闭打赏； 1-文章对应的md文件里有reward:true属性，才有打赏； 2-所有文章均有打赏
-reward_type: 0
+reward_type: 2
 # 打赏wording
 reward_wording: '谢谢你请我吃糖果'
 # 支付宝二维码图片地址，跟你设置头像的方式一样。比如：/assets/img/alipay.jpg
-alipay: /source/img/2022-08-27-01-58-49.png
+alipay: /img/zhifubao.png
 # 微信二维码图片地址
 weixin: 
 
