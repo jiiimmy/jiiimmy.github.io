@@ -6,17 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Tag: git | Jimmy的博客</title>
+  <title>Google Test 学习笔记 | Jimmy的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="华南理工大学18级硕士，目前就职于小鹏自动驾驶中心 C++er">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Jimmy的博客">
-<meta property="og:url" content="http://example.com/tags/git/index.html">
+  <meta name="description" content="简介Google Test（简称GTest）是谷歌开源的一个跨平台的（Linux、Mac、Windows等）C++单元测试框架，能够很方便的帮助我们测试自己写的C++程序是否符合预期。不仅如此，它还提供了丰富的断言、致命和非致命判断、参数化、“死亡测试”等。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Google Test 学习笔记">
+<meta property="og:url" content="http://example.com/2022/08/28/google-test-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Jimmy的博客">
-<meta property="og:description" content="华南理工大学18级硕士，目前就职于小鹏自动驾驶中心 C++er">
+<meta property="og:description" content="简介Google Test（简称GTest）是谷歌开源的一个跨平台的（Linux、Mac、Windows等）C++单元测试框架，能够很方便的帮助我们测试自己写的C++程序是否符合预期。不仅如此，它还提供了丰富的断言、致命和非致命判断、参数化、“死亡测试”等。">
 <meta property="og:locale">
+<meta property="article:published_time" content="2022-08-28T12:43:25.000Z">
+<meta property="article:modified_time" content="2022-08-31T16:41:58.633Z">
 <meta property="article:author" content="Jimmy">
-<meta property="article:tag" content="程序猿、C++、Python">
+<meta property="article:tag" content="gtest">
+<meta property="article:tag" content="c++">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Jimmy的博客" type="application/atom+xml">
@@ -159,62 +162,340 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-google-test-学习笔记"
+  class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/08/20/%E5%B8%B8%E7%94%A8Git%E6%8C%87%E4%BB%A4/" class="archive-article-date">
-  	<time datetime="2022-08-20T16:51:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-20</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/08/20/%E5%B8%B8%E7%94%A8Git%E6%8C%87%E4%BB%A4/">Git学习笔记</a>
+    <h1 class="article-title" itemprop="name">
+      Google Test 学习笔记
     </h1>
   
 
-        <div class="article-info info-on-right">
+          <!--显示阅读次数-->
           
+            <br />
+            <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+              <span class="icon-sort"></span>
+              <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+                阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+              </span>
+            </a>
+            
+              
+                <a href="/2022/08/28/google-test-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2022-08-28T12:43:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-28</time>
+</a>
+                  
+                    
+                      <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数约为 </span>
+        <span class="post-count">4k</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长约为 </span>
+        <span class="post-count">17min</span>
+      </span>
+    </span>
+</div>
+                        
+
+      </header>
+      
+        <div class="article-entry" itemprop="articleBody">
+          
+                    <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>Google Test（简称GTest）是谷歌开源的一个跨平台的（Linux、Mac、Windows等）C++单元测试框架，能够很方便的帮助我们测试自己写的C++程序是否符合预期。不仅如此，它还提供了丰富的断言、致命和非致命判断、参数化、“死亡测试”等。</p>
+<span id="more"></span>
+<p><a target="_blank" rel="noopener" href="https://google.github.io/googletest/">GTest 官网</a><br><a target="_blank" rel="noopener" href="https://github.com/google/googletest">GTest 仓库</a></p>
+<h1 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h1><p>单元测试（unit testing）是指对软件的最小可测试单元进行正确性测试，以检验程序单元是否满足功能、性能、接口、设计规约等要求。单元可以是一个函数、一个方法、一个类、一个功能模块或者一个子系统</p>
+<p>单元测试本质上也是代码，与普通代码的区别在于它是验证代码正确性的代码。单元测试有如下优点：</p>
+<ul>
+<li>便于后期重构。单元测试可以为代码的重构提供保障，只要重构代码之后单元测试全部运行通过，那么在很大程度上表示这次重构没有引入新的BUG，当然这是建立在完整、有效的单元测试覆盖率的基础上。</li>
+<li>优化设计。编写单元测试将使用户从调用者的角度观察、思考，会让使用者把程序设计成易于调用和可测试，并且尽量降低软件中的耦合。</li>
+<li>文档记录。单元测试就是一种无价的文档，它是展示函数或类如何使用的最佳文档，这份文档是可编译、可运行的、并且它保持最新，永远与代码同步。</li>
+<li>具有回归性。自动化的单元测试避免了代码出现回归，编写完成之后，可以随时随地地快速运行测试。</li>
+</ul>
+<h1 id="GTest的优点"><a href="#GTest的优点" class="headerlink" title="GTest的优点"></a>GTest的优点</h1><ol>
+<li>测试时独立和可重复的，GTest使每个测试用例运行在不同的对象上，从而使测试之间相互独立。当测试失效时，GTest允许单独运行它以进行快速调试</li>
+<li>测试有良好的组织，可以反映被测试代码的结构。 GoogleTest 将相关测试划分到一个测试组内，组内的测试能共享数据，使测试易于维护。</li>
+<li>测试是可移植的和可重复使用的。 与平台无关的代码，其测试代码也应该和平台无关，GoogleTest 能在不同的操作系统下工作，并且支持不同的编译器。</li>
+<li>当测试用例执行失败时，提供尽可能多的有效信息，以便定位问题。 GoogleTest 不会在第一次测试失败时停止。相反，它只会停止当前测试并继续下一个测试。还可以设置报告非致命故障的测试，然后继续当前测试。因此，您可以在单个运行-编辑-编译周期中检测和修复多个错误。</li>
+</ol>
+<h1 id="搭建环境"><a href="#搭建环境" class="headerlink" title="搭建环境"></a>搭建环境</h1><p>这里我选择Bazel作为编译工具，后面专门写一个关于Bazel的学习博客。首先在我的home目录下创建workspace</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd ~ &amp;&amp; mkdir workspace &amp;&amp; cd workspace</span><br></pre></td></tr></table></figure>
+<p>然后在workspace下创建一个WORKSPACE 文件，并在其中引入外部依赖 GoogleTest，此时Bazel 会自动去Github 上拉取GTest的相关文件，WORKSPACE中的内容为：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">load(&quot;@bazel_tools//tools/build_defs/repo:http.bzl&quot;, &quot;http_archive&quot;)</span><br><span class="line"></span><br><span class="line">http_archive(</span><br><span class="line">  name = &quot;com_google_googletest&quot;,</span><br><span class="line">  urls = [&quot;https://github.com/google/googletest/archive/609281088cfefc76f9d0ce82e1ff6c30cc3591e5.zip&quot;],</span><br><span class="line">  strip_prefix = &quot;googletest-609281088cfefc76f9d0ce82e1ff6c30cc3591e5&quot;,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>然后在workspace下创建first_gtest.cc文件：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;gtest/gtest.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Demonstrate some basic assertions.</span></span><br><span class="line"><span class="built_in">TEST</span>(HelloTest, BasicAssertions) &#123;</span><br><span class="line">  <span class="comment">// Expect two strings not to be equal.</span></span><br><span class="line">  <span class="built_in">EXPECT_STRNE</span>(<span class="string">&quot;hello&quot;</span>, <span class="string">&quot;world&quot;</span>);</span><br><span class="line">  <span class="comment">// Expect equality.</span></span><br><span class="line">  <span class="built_in">EXPECT_EQ</span>(<span class="number">7</span> * <span class="number">6</span>, <span class="number">42</span>);</span><br><span class="line">  <span class="built_in">EXPECT_EQ</span>(<span class="number">1</span>+<span class="number">1</span>, <span class="number">3</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>同时在目录下创建BUILD文件并说明目标编译的规则：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cc_test(</span><br><span class="line">    name = &quot;first_gtest&quot;,</span><br><span class="line">    size = &quot;small&quot;,</span><br><span class="line">    srcs = [&quot;first_gtest.cc&quot;],</span><br><span class="line">    deps = [&quot;@com_google_googletest//:gtest_main&quot;],</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>在终端执行以下命令即可构建并运行测试程序：<br><code>bazel test --test_output=all //:hello_test </code><br>注：若想再次运行程序，可以在同目录的bazel-bin文件下找到first_gtest的程序 ：)<br>程序的输出为：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Running main() from gmock_main.cc</span><br><span class="line">[==========] Running 1 test from 1 test suite.</span><br><span class="line">[----------] Global test environment set-up.</span><br><span class="line">[----------] 1 test from HelloTest</span><br><span class="line">[ RUN      ] HelloTest.BasicAssertions</span><br><span class="line">first_gtest.cc:9: Failure</span><br><span class="line">Expected equality of these values:</span><br><span class="line">  1+1</span><br><span class="line">    Which is: 2</span><br><span class="line">  3</span><br><span class="line">[  FAILED  ] HelloTest.BasicAssertions (1 ms)</span><br><span class="line">[----------] 1 test from HelloTest (1 ms total)</span><br><span class="line"></span><br><span class="line">[----------] Global test environment tear-down</span><br><span class="line">[==========] 1 test from 1 test suite ran. (1 ms total)</span><br><span class="line">[  PASSED  ] 0 tests.</span><br><span class="line">[  FAILED  ] 1 test, listed below:</span><br><span class="line">[  FAILED  ] HelloTest.BasicAssertions</span><br><span class="line"></span><br><span class="line"> 1 FAILED TEST</span><br></pre></td></tr></table></figure>
+<p>我们并没有在first_gtest.cc中定义main()函数，第1行的输出说明GTest已经提供了main()入口，我们写的TEST函数在gmock_main.cc中被调用，这个函数是在BUILD的<code>&quot;@com_google_googletest//:gtest_main&quot;</code>中所引入。 第5行表明开始RUN我们写的TEST函数，然后输出了一个FAILED消息，因为我们在first_gtest.cc的第9行写了1+1的期望值是3，但是实际输出值是2，故该TEST没有通过测试，虽然第7、8行的代码通过了测试。</p>
+<h1 id="GTest中的概念"><a href="#GTest中的概念" class="headerlink" title="GTest中的概念"></a>GTest中的概念</h1><h2 id="断言"><a href="#断言" class="headerlink" title="断言"></a>断言</h2><p>在GTest中，是通过断言（Assertion）来判断代码实现的功能是否符合预期。断言的结果分为成功（success）、非致命错误（non-fatal failture）和致命错误（fatal failture）</p>
+<ul>
+<li>成功：断言成功，程序的行为符合预期，程序允许继续向下运行。可以在代码中调用 SUCCEED() 来表示这个结果</li>
+<li>非致命错误：断言失败，但是程序没有直接中止，而是继续向下运行。可以在代码中调用 FAIL() 来表示这个结果</li>
+<li>致命错误：中止当前函数或者程序崩溃。可以在代码中调用 ADD_FAILURE() 来表示这个结果</li>
+</ul>
+<p>GTest的断言是类似于函数调用的宏。通过对其行为进行断言来测试一个类或函数。当断言失败时，GTest会打印断言的源文件和行号位置以及失败消息。还可以提供自定义失败消息，该消息将附加到GTest的消息中</p>
+<p>宏的格式有两种：</p>
+<blockquote>
+<p>EXPECT_* ：在失败时会产生非致命故障，不会中止当前功能<br>ASSERT_*：在失败时会产生致命错误，并中止当前函数，在失败用例后面的语句将不再执行</p>
+</blockquote>
+<p>通常 EXPECT_* 是首选，因为它们允许在测试中报告多个。但是如果在某条件不成立，程序就无法运行时，就应该使用 ASSERT_*，需要注意的是 ASSERT_* 是直接从当前函数返回的，可能会导致一些内存、文件资源没有释放，因此存在内存泄漏的问题。</p>
+<p>GTest提供了一组断言，可以用各种方式来验证代码的行为。包括检查布尔条件、基于关系运算符比较值、验证字符串值、浮点值等等。甚至还有一些断言可以通过提供自定义谓词来验证更复杂的状态。有关 GoogleTest 提供的断言的完整列表，可以参考官方文档：<a target="_blank" rel="noopener" href="https://google.github.io/googletest/reference/assertions.html">Assertions Reference</a></p>
+<p>如果想自定义失败时的信息，只需要使用流操作符 &lt;&lt; 将这些信息流到断言宏中，并且这些信息只有在失败时会显示出来，例如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ASSERT_EQ</span>(x.<span class="built_in">size</span>(), y.<span class="built_in">size</span>()) &lt;&lt; <span class="string">&quot;Vectors x and y are of unequal length&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; x.<span class="built_in">size</span>(); ++i) &#123;</span><br><span class="line">  <span class="built_in">EXPECT_EQ</span>(x[i], y[i]) &lt;&lt; <span class="string">&quot;Vectors x and y differ at index &quot;</span> &lt;&lt; i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>任何可以流向 std::ostream 的东西都可以流向断言宏，特别是 C 语言的字符串（char*）和 std::string 对象。</p>
+<h2 id="TEST-宏函数"><a href="#TEST-宏函数" class="headerlink" title="TEST 宏函数"></a>TEST 宏函数</h2><p>如果想要创建测试，可以使用宏函数 TEST，它具有以下特点：</p>
+<ul>
+<li>TEST 是一个没有返回值的宏函数</li>
+<li>我们可以在该函数中使用断言来检测代码是否符合预期，测试的结果由断言决定。如果测试中的任何断言失败（致命或非致命），或者如果测试崩溃，测试接管会报失败</li>
+</ul>
+<p>TEST函数定义为：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">TEST</span>(TestSuiteName, TestName) &#123;</span><br><span class="line">  ... test body ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>TestSuiteName 对应测试用例集名称，TestName 是归属的测试用例名称。这两个名称都必须是有效的 C++ 标识符，并且它们不应包含任何下划线。测试的全名由其包含的测试用例集及其测试名称组成。来自不同测试用例集的测试可以具有相同的名称。</p>
+<p>这里以我自己写的一个简单版本的判断一个数是否为质数函数为例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;gtest/gtest.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">is_prime</span><span class="params">(<span class="type">int</span> num)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (num &lt; <span class="number">2</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i * i &lt;= num; ++i) &#123;</span><br><span class="line">    <span class="keyword">if</span> (num % i == <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//测试负数</span></span><br><span class="line"><span class="built_in">TEST</span>(PRIMETEST, Negative) &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">-10</span>; i &lt; <span class="number">-1</span>; ++i) &#123;</span><br><span class="line">    <span class="built_in">EXPECT_FALSE</span>(<span class="built_in">is_prime</span>(i)) &lt;&lt; <span class="string">&quot;i index is&quot;</span> &lt;&lt; i;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//测试0</span></span><br><span class="line"><span class="built_in">TEST</span>(PRIMETEST, Zero) &#123; <span class="built_in">EXPECT_FALSE</span>(<span class="built_in">is_prime</span>(<span class="number">0</span>)); &#125;v</span><br><span class="line"></span><br><span class="line"><span class="comment">//测试正数</span></span><br><span class="line"><span class="built_in">TEST</span>(PRIMETEST, Positive) &#123;</span><br><span class="line">    <span class="built_in">EXPECT_FALSE</span>(<span class="built_in">is_prime</span>(<span class="number">1</span>));</span><br><span class="line">    <span class="built_in">EXPECT_TRUE</span>(<span class="built_in">is_prime</span>(<span class="number">2</span>));</span><br><span class="line">    <span class="built_in">EXPECT_FALSE</span>(<span class="built_in">is_prime</span>(<span class="number">4</span>));</span><br><span class="line">    <span class="built_in">EXPECT_TRUE</span>(<span class="built_in">is_prime</span>(<span class="number">7</span>));</span><br><span class="line">    <span class="built_in">EXPECT_TRUE</span>(<span class="built_in">is_prime</span>(<span class="number">6203</span>));</span><br><span class="line">    <span class="built_in">EXPECT_FALSE</span>(<span class="built_in">is_prime</span>(<span class="number">10000</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里为了能够更好的组织测试用例，将数据根据正负数划分为三个测试用例集，每一个用例集中都是相同类型的测试用例，执行测试的输出如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Running main() from gmock_main.cc</span><br><span class="line">[==========] Running 3 tests from 1 test suite.</span><br><span class="line">[----------] Global test environment set-up.</span><br><span class="line">[----------] 3 tests from PRIMETEST</span><br><span class="line">[ RUN      ] PRIMETEST.Negative</span><br><span class="line">[       OK ] PRIMETEST.Negative (0 ms)</span><br><span class="line">[ RUN      ] PRIMETEST.Zero</span><br><span class="line">[       OK ] PRIMETEST.Zero (0 ms)</span><br><span class="line">[ RUN      ] PRIMETEST.Positive</span><br><span class="line">[       OK ] PRIMETEST.Positive (0 ms)</span><br><span class="line">[----------] 3 tests from PRIMETEST (0 ms total)</span><br><span class="line"></span><br><span class="line">[----------] Global test environment tear-down</span><br><span class="line">[==========] 3 tests from 1 test suite ran. (0 ms total)</span><br><span class="line">[  PASSED  ] 3 tests.</span><br></pre></td></tr></table></figure>
+<p>这就表示我们的代码通过了我给出的所有测试用例</p>
+<h2 id="TEST-F-宏函数"><a href="#TEST-F-宏函数" class="headerlink" title="TEST_F 宏函数"></a>TEST_F 宏函数</h2><p>当我们写了两个或多个对相似数据进行操作的测试，可以使用test fixture来为多个测试重用这些相同的配置，其对应的宏函数为TEST_F，函数定义为：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">TEST_F</span>(TestFixtureName, TestName) &#123;</span><br><span class="line">  ... test body ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>TestFixtureName 对应一个test fixture类的名称。因此我们需要自己去定义一个这样的类，并让它继承testing::Test类，然后根据我们的需要实现下面这两个虚函数：</p>
+<ul>
+<li><code>virtual void SetUp()</code> ：类似于构造函数，在TEST_F之前运行</li>
+<li><code>virtual void TearDown()</code> ：类似于析构函数，在TEST_F之后运行</li>
+</ul>
+<p>此外<code>testing::Test</code>基类还提供了两个静态函数：</p>
+<ul>
+<li><code>static void SetUpTestSuite()</code> ：在第一个TEST之前运行</li>
+<li><code>static void TearDownTestSuite()</code>：在最后一个TEST之后运行</li>
+</ul>
+<p>除了这两种，还有一种全局事件，即继承&#96;&#96;，并实现以下两个虚函数：<br><code>virtual void SetUp()</code>：在所有用例之前运行<br><code>virtual void TearDown()</code>：在所有用例之后运行</p>
+<p>以GTest官网的sample3为例，在queue.h中实现如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> once </span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stddef.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> E&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Queue</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> E&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">QueueNode</span> &#123;</span><br><span class="line">  <span class="keyword">friend</span> <span class="keyword">class</span> <span class="title class_">Queue</span>&lt;E&gt;;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="type">const</span> E&amp; <span class="title">element</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> element_; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function">QueueNode* <span class="title">next</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> next_; &#125;</span><br><span class="line">  <span class="function"><span class="type">const</span> QueueNode* <span class="title">next</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> next_; &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  <span class="function"><span class="keyword">explicit</span> <span class="title">QueueNode</span><span class="params">(<span class="type">const</span> E&amp; an_element)</span></span></span><br><span class="line"><span class="function">      : element_(an_element), next_(nullptr) &#123;</span>&#125;</span><br><span class="line"></span><br><span class="line">  <span class="type">const</span> QueueNode&amp; <span class="keyword">operator</span>=(<span class="type">const</span> QueueNode&amp;);</span><br><span class="line">  <span class="built_in">QueueNode</span>(<span class="type">const</span> QueueNode&amp;);</span><br><span class="line"></span><br><span class="line">  E element_;</span><br><span class="line">  QueueNode* next_;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> E&gt;  </span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Queue</span> &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="built_in">Queue</span>() : <span class="built_in">head_</span>(<span class="literal">nullptr</span>), <span class="built_in">last_</span>(<span class="literal">nullptr</span>), <span class="built_in">size_</span>(<span class="number">0</span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  ~<span class="built_in">Queue</span>() &#123; <span class="built_in">Clear</span>(); &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">Clear</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (size_ &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      QueueNode&lt;E&gt;* node = head_;</span><br><span class="line">      QueueNode&lt;E&gt;* next = node-&gt;<span class="built_in">next</span>();</span><br><span class="line">      <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">        <span class="keyword">delete</span> node;</span><br><span class="line">        node = next;</span><br><span class="line">        <span class="keyword">if</span> (node == <span class="literal">nullptr</span>) <span class="keyword">break</span>;</span><br><span class="line">        next = node-&gt;<span class="built_in">next</span>();</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      head_ = last_ = <span class="literal">nullptr</span>;</span><br><span class="line">      size_ = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">size_t</span> <span class="title">Size</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> size_; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function">QueueNode&lt;E&gt;* <span class="title">Head</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> head_; &#125;</span><br><span class="line">  <span class="function"><span class="type">const</span> QueueNode&lt;E&gt;* <span class="title">Head</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> head_; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function">QueueNode&lt;E&gt;* <span class="title">Last</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> last_; &#125;</span><br><span class="line">  <span class="function"><span class="type">const</span> QueueNode&lt;E&gt;* <span class="title">Last</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> last_; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">Enqueue</span><span class="params">(<span class="type">const</span> E&amp; element)</span> </span>&#123;</span><br><span class="line">    QueueNode&lt;E&gt;* new_node = <span class="keyword">new</span> <span class="built_in">QueueNode</span>&lt;E&gt;(element);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (size_ == <span class="number">0</span>) &#123;</span><br><span class="line">      head_ = last_ = new_node;</span><br><span class="line">      size_ = <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      last_-&gt;next_ = new_node;</span><br><span class="line">      last_ = new_node;</span><br><span class="line">      size_++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function">E* <span class="title">Dequeue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (size_ == <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">const</span> QueueNode&lt;E&gt;* <span class="type">const</span> old_head = head_;</span><br><span class="line">    head_ = head_-&gt;next_;</span><br><span class="line">    size_--;</span><br><span class="line">    <span class="keyword">if</span> (size_ == <span class="number">0</span>) &#123;</span><br><span class="line">      last_ = <span class="literal">nullptr</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    E* element = <span class="keyword">new</span> <span class="built_in">E</span>(old_head-&gt;<span class="built_in">element</span>());</span><br><span class="line">    <span class="keyword">delete</span> old_head;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> element;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> F&gt;</span><br><span class="line">  <span class="function">Queue* <span class="title">Map</span><span class="params">(F function)</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">    Queue* new_queue = <span class="keyword">new</span> <span class="built_in">Queue</span>();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">const</span> QueueNode&lt;E&gt;* node = head_; node != <span class="literal">nullptr</span>;</span><br><span class="line">         node = node-&gt;next_) &#123;</span><br><span class="line">      new_queue-&gt;<span class="built_in">Enqueue</span>(<span class="built_in">function</span>(node-&gt;<span class="built_in">element</span>()));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> new_queue;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  QueueNode&lt;E&gt;* head_;</span><br><span class="line">  QueueNode&lt;E&gt;* last_;</span><br><span class="line">  <span class="type">size_t</span> size_;</span><br><span class="line">  <span class="built_in">Queue</span>(<span class="type">const</span> Queue&amp;);</span><br><span class="line">  <span class="type">const</span> Queue&amp; <span class="keyword">operator</span>=(<span class="type">const</span> Queue&amp;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>对应的queue_test.cpp文件如下，为了了解其构建对象的顺序，我们加上了构造和析构函数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;queue.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;gtest/gtest.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> &#123;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">QueueTestSmpl3</span> : <span class="keyword">public</span> testing::Test &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="built_in">QueueTestSmpl3</span>() &#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;call queue test ctor&quot;</span> &lt;&lt;std::endl;</span><br><span class="line">  &#125;</span><br><span class="line">  ~<span class="built_in">QueueTestSmpl3</span>() &#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;call queue test dtor&quot;</span> &lt;&lt;std::endl;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">SetUp</span><span class="params">()</span> <span class="keyword">override</span> </span>&#123;</span><br><span class="line">    q1_.<span class="built_in">Enqueue</span>(<span class="number">1</span>);</span><br><span class="line">    q2_.<span class="built_in">Enqueue</span>(<span class="number">2</span>);</span><br><span class="line">    q2_.<span class="built_in">Enqueue</span>(<span class="number">3</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">static</span> <span class="type">int</span> <span class="title">Double</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123; <span class="keyword">return</span> <span class="number">2</span> * n; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 测试 Queue::Map() 时用到的辅助函数</span></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">MapTester</span><span class="params">(<span class="type">const</span> Queue&lt;<span class="type">int</span>&gt; *q)</span> </span>&#123;</span><br><span class="line">    <span class="type">const</span> Queue&lt;<span class="type">int</span>&gt; *<span class="type">const</span> new_q = q-&gt;<span class="built_in">Map</span>(Double);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">ASSERT_EQ</span>(q-&gt;<span class="built_in">Size</span>(), new_q-&gt;<span class="built_in">Size</span>());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">const</span> QueueNode&lt;<span class="type">int</span>&gt; *n1 = q-&gt;<span class="built_in">Head</span>(), *n2 = new_q-&gt;<span class="built_in">Head</span>();</span><br><span class="line">         n1 != <span class="literal">nullptr</span>; n1 = n1-&gt;<span class="built_in">next</span>(), n2 = n2-&gt;<span class="built_in">next</span>()) &#123;</span><br><span class="line">      <span class="built_in">EXPECT_EQ</span>(<span class="number">2</span> * n1-&gt;<span class="built_in">element</span>(), n2-&gt;<span class="built_in">element</span>());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">delete</span> new_q;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Queue&lt;<span class="type">int</span>&gt; q0_;</span><br><span class="line">  Queue&lt;<span class="type">int</span>&gt; q1_;</span><br><span class="line">  Queue&lt;<span class="type">int</span>&gt; q2_;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//测试默认构造函数</span></span><br><span class="line"><span class="built_in">TEST_F</span>(QueueTestSmpl3, DefaultConstructor) &#123; <span class="built_in">EXPECT_EQ</span>(<span class="number">0u</span>, q0_.<span class="built_in">Size</span>()); &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//测试Dequeue</span></span><br><span class="line"><span class="built_in">TEST_F</span>(QueueTestSmpl3, Dequeue) &#123;</span><br><span class="line">  <span class="type">int</span> *n = q0_.<span class="built_in">Dequeue</span>();</span><br><span class="line">  <span class="built_in">EXPECT_TRUE</span>(n == <span class="literal">nullptr</span>);</span><br><span class="line"></span><br><span class="line">  n = q1_.<span class="built_in">Dequeue</span>();</span><br><span class="line">  <span class="built_in">ASSERT_TRUE</span>(n != <span class="literal">nullptr</span>);</span><br><span class="line">  <span class="built_in">EXPECT_EQ</span>(<span class="number">1</span>, *n);</span><br><span class="line">  <span class="built_in">EXPECT_EQ</span>(<span class="number">0u</span>, q1_.<span class="built_in">Size</span>());</span><br><span class="line">  <span class="keyword">delete</span> n;</span><br><span class="line"></span><br><span class="line">  n = q2_.<span class="built_in">Dequeue</span>();</span><br><span class="line">  <span class="built_in">ASSERT_TRUE</span>(n != <span class="literal">nullptr</span>);</span><br><span class="line">  <span class="built_in">EXPECT_EQ</span>(<span class="number">2</span>, *n);</span><br><span class="line">  <span class="built_in">EXPECT_EQ</span>(<span class="number">1u</span>, q2_.<span class="built_in">Size</span>());</span><br><span class="line">  <span class="keyword">delete</span> n;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//测试Map函数</span></span><br><span class="line"><span class="built_in">TEST_F</span>(QueueTestSmpl3, Map) &#123;</span><br><span class="line">  <span class="built_in">MapTester</span>(&amp;q0_);</span><br><span class="line">  <span class="built_in">MapTester</span>(&amp;q1_);</span><br><span class="line">  <span class="built_in">MapTester</span>(&amp;q2_);</span><br><span class="line">&#125;</span><br><span class="line">&#125; <span class="comment">// namespace</span></span><br></pre></td></tr></table></figure>
+<p>我们看一下QueueTestSmpl3的实现，这个类中实现了一些测试时用到的辅助函数，以及使用 SetUp预置了一些测试数据。（除了有特殊需求，则不需要实现TearDown，因为析构函数已经帮我们释放了资源）<br>该目录下的BUILD文件为：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">cc_test(</span><br><span class="line">  name = &quot;queue_test&quot;,</span><br><span class="line">  size = &quot;small&quot;,</span><br><span class="line">  srcs = [&quot;queue_test.cpp&quot;],</span><br><span class="line">  deps = [&quot;@com_google_googletest//:gtest_main&quot;,</span><br><span class="line">          &quot;//:queue&quot;</span><br><span class="line">  ],</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">cc_library(</span><br><span class="line">  name = &quot;queue&quot;,</span><br><span class="line">  hdrs = [&quot;queue.h&quot;]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>然后运行以下指令执行测试：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bazel test --test_output=all //:queue_test</span><br></pre></td></tr></table></figure>
+<p>得到的输出为：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Running main() from gmock_main.cc</span><br><span class="line">[==========] Running 3 tests from 1 test suite.</span><br><span class="line">[----------] Global test environment set-up.</span><br><span class="line">[----------] 3 tests from QueueTestSmpl3</span><br><span class="line">[ RUN      ] QueueTestSmpl3.DefaultConstructor</span><br><span class="line">call queue test ctor</span><br><span class="line">call queue test dtor</span><br><span class="line">[       OK ] QueueTestSmpl3.DefaultConstructor (0 ms)</span><br><span class="line">[ RUN      ] QueueTestSmpl3.Dequeue</span><br><span class="line">call queue test ctor</span><br><span class="line">call queue test dtor</span><br><span class="line">[       OK ] QueueTestSmpl3.Dequeue (0 ms)</span><br><span class="line">[ RUN      ] QueueTestSmpl3.Map</span><br><span class="line">call queue test ctor</span><br><span class="line">call queue test dtor</span><br><span class="line">[       OK ] QueueTestSmpl3.Map (0 ms)</span><br><span class="line">[----------] 3 tests from QueueTestSmpl3 (0 ms total)</span><br><span class="line"></span><br><span class="line">[----------] Global test environment tear-down</span><br><span class="line">[==========] 3 tests from 1 test suite ran. (0 ms total)</span><br><span class="line">[  PASSED  ] 3 tests.</span><br></pre></td></tr></table></figure>
+
+<p>从输出中以 DefaultConstructor 为例，来分析一下它的执行流程：</p>
+<ol>
+<li>QueueTestSmpl3 调用构造函数来构造出一个对象</li>
+<li>QueueTestSmpl3 对象调用SetUp函数进行初始化</li>
+<li>DefaultConstructor 开始执行并结束测试</li>
+<li>QueueTestSmpl3 对象调用隐式生成的 TearDown 进行清理</li>
+<li>QueueTestSmpl3 调用析构函数，析构对象</li>
+</ol>
+<p>这里我们写了3个TEST_F函数，每一个函数的流程都是如此，从输出结果可以看到这个流程是按顺序执行</p>
+<h2 id="运行测试"><a href="#运行测试" class="headerlink" title="运行测试"></a>运行测试</h2><p>TEST 和 TEST_F 宏函数会隐式地向 GoogleTest 注册这些测试函数，因此我们不需要为了运行这些它们而进行枚举。定义完测试后，你可以用 RUN_ALL_TESTS 来运行它们，此时会运行所有的测试，如果全部成功则返回 0，反之则返回 1。其执行流程如下：</p>
+<ol>
+<li>保存所有 GoogleTest 标志的状态</li>
+<li>为第一个测试创建一个 test fixture 对象</li>
+<li>通过 SetUp 初始化 test fixture 对象</li>
+<li>在 test fixture 对象上进行测试</li>
+<li>通过 TearDown 清理 test fixture</li>
+<li>删除 test fixture</li>
+<li>恢复所有 GoogleTest 标志的状态</li>
+<li>对下一个测试重复上述步骤，直到所有测试都运行完毕</li>
+</ol>
+<p>如果发生 fatal failure ，则将跳过后续步骤</p>
+<h2 id="编写main-函数"><a href="#编写main-函数" class="headerlink" title="编写main()函数"></a>编写main()函数</h2><p>用户不需要编写自己的 main 函数，编译器会自动将它链接到 gtest_main。如果用户有特殊需求，需要编写一个 main 函数，调用 RUN_ALL_TESTS() 来运行所有测试，并且只能调用一次 RUN_ALL_TESTS()函数，同时必须要在main()函数中返回 RUN_ALL_TESTS()的返回值<br>例如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> **argv)</span> </span>&#123;</span><br><span class="line">  ::testing::<span class="built_in">InitGoogleTest</span>(&amp;argc, argv);</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">RUN_ALL_TESTS</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>testing::InitGoogleTest</code>函数会解析 GoogleTest 标志的命令行，并删除所有识别的标志。这允许用户通过各种标志控制测试程序的行为。必须在调用RUN_ALL_TESTS之前调用此函数 ，否则标志将无法正确初始化。</p>
+<p>参考文献：<br><a target="_blank" rel="noopener" href="https://google.github.io/googletest/primer.html">Googletest Primer</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/544491071">一文掌握谷歌 C++ 单元测试框架 GoogleTest</a></p>
+
+                      
+
+                        
+                          <div class="page-reward">
+                            <a href="javascript:;" class="page-reward-btn tooltip-top">
+                              <div class="tooltip tooltip-east">
+                                <span class="tooltip-item">
+                                  赏
+                                </span>
+                                <span class="tooltip-content">
+                                  <span class="tooltip-text">
+                                    <span class="tooltip-inner">
+                                      <p class="reward-p"><i class="icon icon-quo-left"></i>
+                                        谢谢你请我吃糖果<i class="icon icon-quo-right"></i>
+                                      </p>
+                                      <div class="reward-box">
+                                        
+                                          <div class="reward-box-item">
+                                            <img class="reward-img" src="/img/zhifubao.png">
+                                            <span class="reward-type">支付宝</span>
+                                          </div>
+                                          
+                                            
+                                      </div>
+                                    </span>
+                                  </span>
+                                </span>
+                              </div>
+                            </a>
+                          </div>
+                          
+        </div>
+        <div class="article-info article-info-index">
+          
+              
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">gtest</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+                
 
+                  
+
+                      
+                        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/08/28/google-test-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+                          
+                            <div class="clearfix"></div>
+        </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2022/08/29/%E6%B5%85%E8%B0%88const%E5%9C%A8C-%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          浅谈const在C++中的使用
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2022/08/27/static%E5%85%B3%E9%94%AE%E5%AD%97%E5%9C%A8C-%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">static关键字在C++中的使用</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
+</nav>
 
     
+      <aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95"><span class="toc-number">2.</span> <span class="toc-text">单元测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#GTest%E7%9A%84%E4%BC%98%E7%82%B9"><span class="toc-number">3.</span> <span class="toc-text">GTest的优点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83"><span class="toc-number">4.</span> <span class="toc-text">搭建环境</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#GTest%E4%B8%AD%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">5.</span> <span class="toc-text">GTest中的概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%AD%E8%A8%80"><span class="toc-number">5.1.</span> <span class="toc-text">断言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TEST-%E5%AE%8F%E5%87%BD%E6%95%B0"><span class="toc-number">5.2.</span> <span class="toc-text">TEST 宏函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TEST-F-%E5%AE%8F%E5%87%BD%E6%95%B0"><span class="toc-number">5.3.</span> <span class="toc-text">TEST_F 宏函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%B5%8B%E8%AF%95"><span class="toc-number">5.4.</span> <span class="toc-text">运行测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E5%86%99main-%E5%87%BD%E6%95%B0"><span class="toc-number">5.5.</span> <span class="toc-text">编写main()函数</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
 
 
+        
+          
+
+                
+
+                      
+
+                            
+
+                                
+                                      
           </div>
         </div>
       </div>
@@ -238,9 +519,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

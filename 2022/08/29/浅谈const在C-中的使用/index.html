@@ -6,17 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Tag: git | Jimmy的博客</title>
+  <title>浅谈const在C++中的使用 | Jimmy的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="华南理工大学18级硕士，目前就职于小鹏自动驾驶中心 C++er">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Jimmy的博客">
-<meta property="og:url" content="http://example.com/tags/git/index.html">
+  <meta name="description" content="最近在工作中用const的时候发现自己对const的理解是一种一知半解的状态，打算用这篇博客系统性总结const的用法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈const在C++中的使用">
+<meta property="og:url" content="http://example.com/2022/08/29/%E6%B5%85%E8%B0%88const%E5%9C%A8C-%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="Jimmy的博客">
-<meta property="og:description" content="华南理工大学18级硕士，目前就职于小鹏自动驾驶中心 C++er">
+<meta property="og:description" content="最近在工作中用const的时候发现自己对const的理解是一种一知半解的状态，打算用这篇博客系统性总结const的用法">
 <meta property="og:locale">
+<meta property="article:published_time" content="2022-08-29T13:31:40.000Z">
+<meta property="article:modified_time" content="2022-08-30T16:39:18.328Z">
 <meta property="article:author" content="Jimmy">
-<meta property="article:tag" content="程序猿、C++、Python">
+<meta property="article:tag" content="c++">
+<meta property="article:tag" content="const">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Jimmy的博客" type="application/atom+xml">
@@ -159,62 +162,234 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-浅谈const在C-中的使用"
+  class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/08/20/%E5%B8%B8%E7%94%A8Git%E6%8C%87%E4%BB%A4/" class="archive-article-date">
-  	<time datetime="2022-08-20T16:51:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-20</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/08/20/%E5%B8%B8%E7%94%A8Git%E6%8C%87%E4%BB%A4/">Git学习笔记</a>
+    <h1 class="article-title" itemprop="name">
+      浅谈const在C++中的使用
     </h1>
   
 
-        <div class="article-info info-on-right">
+          <!--显示阅读次数-->
           
+            <br />
+            <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+              <span class="icon-sort"></span>
+              <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+                阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+              </span>
+            </a>
+            
+              
+                <a href="/2022/08/29/%E6%B5%85%E8%B0%88const%E5%9C%A8C-%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8/" class="archive-article-date">
+  	<time datetime="2022-08-29T13:31:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-29</time>
+</a>
+                  
+                    
+                      <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数约为 </span>
+        <span class="post-count">603</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长约为 </span>
+        <span class="post-count">2min</span>
+      </span>
+    </span>
+</div>
+                        
+
+      </header>
+      
+        <div class="article-entry" itemprop="articleBody">
+          
+                    <p>最近在工作中用const的时候发现自己对const的理解是一种一知半解的状态，打算用这篇博客系统性总结const的用法</p>
+<span id="more"></span>
+<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>在C++中 const 允许指定一个语义约束，编译器会强制实施这个约束，允许程序员告诉编译器某值是保持不变的。如果在编程中确实有某个值保持不变，就应该明确使用const，这样可以获得编译器的帮助。其可以用来修饰基础类型变量、自定义对象、成员函数、返回值、函数参数</p>
+<h1 id="不同场景的const用法"><a href="#不同场景的const用法" class="headerlink" title="不同场景的const用法"></a>不同场景的const用法</h1><h2 id="const与基础类型变量"><a href="#const与基础类型变量" class="headerlink" title="const与基础类型变量"></a>const与基础类型变量</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> a = <span class="number">7</span>;</span><br><span class="line"><span class="type">int</span> b = a; <span class="comment">//正确</span></span><br><span class="line">a = <span class="number">8</span>; <span class="comment">//错误，不能改变</span></span><br></pre></td></tr></table></figure>
+<p>在上面这段代码中，a被定义为一个const常量，可以将a赋值给b，但是不能对a再次赋值，因为a被编译器认为是一个常量，其值不可以修改。再看下面一段代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> a =<span class="number">7</span>;</span><br><span class="line">    <span class="type">int</span>* p = (<span class="type">int</span>*)&amp;a;</span><br><span class="line">    *p = <span class="number">8</span>;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;a = &quot;</span> &lt;&lt;a &lt;&lt;std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">volatile</span> <span class="type">const</span> <span class="type">int</span> b =<span class="number">7</span>;</span><br><span class="line">    <span class="type">int</span>* p1 = (<span class="type">int</span>*)&amp;b;</span><br><span class="line">    *p1 = <span class="number">8</span>;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;b = &quot;</span> &lt;&lt;b &lt;&lt;std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>得到的输出为：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = 7</span><br><span class="line">b = 8</span><br></pre></td></tr></table></figure>
+<p>用gdb在第9行打断点查看程序运行过程中变量a的变化情况，如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">(gdb) n</span><br><span class="line">5           const int a =7;</span><br><span class="line">(gdb) n</span><br><span class="line">6           int* p = (int*)&amp;a;</span><br><span class="line">(gdb) print(a)</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">1 = 7</span></span><br><span class="line">(gdb) n</span><br><span class="line">7           *p = 8;</span><br><span class="line">(gdb) n</span><br><span class="line">8           std::cout &lt;&lt; &quot;a = &quot; &lt;&lt;a &lt;&lt;std::endl;</span><br><span class="line">(gdb) print(a)</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">2 = 8</span></span><br><span class="line">(gdb) n</span><br><span class="line">a = 7</span><br></pre></td></tr></table></figure>
+<p>对于变量a，我们声明的是const，然后我们通过将a的指针强转成int*给p，通过*p&#x3D;8来改变a指针指的内容为8，通过gdb我们发现a的值确实被修改成了8，但是因为我们对a加了const关键字，会让编译器对其进行优化，在程序端看a一直为7，所以我们看到输出 <code>a = 7</code>。对于变量b，在加上const的时候同时加上了volatil让编译器不要进行优化，这里我们通过指针去修改b的值就能体现到程序中的b中，但是这样就失去了const本身的意义，故我们在确定一个变量为const后，就不要试图通过指针去修改它，这样往往会产生意想不到的行为</p>
+
+                      
+
+                        
+                          <div class="page-reward">
+                            <a href="javascript:;" class="page-reward-btn tooltip-top">
+                              <div class="tooltip tooltip-east">
+                                <span class="tooltip-item">
+                                  赏
+                                </span>
+                                <span class="tooltip-content">
+                                  <span class="tooltip-text">
+                                    <span class="tooltip-inner">
+                                      <p class="reward-p"><i class="icon icon-quo-left"></i>
+                                        谢谢你请我吃糖果<i class="icon icon-quo-right"></i>
+                                      </p>
+                                      <div class="reward-box">
+                                        
+                                          <div class="reward-box-item">
+                                            <img class="reward-img" src="/img/zhifubao.png">
+                                            <span class="reward-type">支付宝</span>
+                                          </div>
+                                          
+                                            
+                                      </div>
+                                    </span>
+                                  </span>
+                                </span>
+                              </div>
+                            </a>
+                          </div>
+                          
+        </div>
+        <div class="article-info article-info-index">
+          
+              
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">const</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+                
 
+                  
+
+                      
+                        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/08/29/%E6%B5%85%E8%B0%88const%E5%9C%A8C-%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+                          
+                            <div class="clearfix"></div>
+        </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2022/08/28/google-test-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Google Test 学习笔记</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
+</nav>
 
     
+      <aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%8D%E5%90%8C%E5%9C%BA%E6%99%AF%E7%9A%84const%E7%94%A8%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">不同场景的const用法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#const%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B%E5%8F%98%E9%87%8F"><span class="toc-number">2.1.</span> <span class="toc-text">const与基础类型变量</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
 
 
+        
+          
+
+                
+
+                      
+
+                            
+
+                                
+                                      
           </div>
         </div>
       </div>
@@ -238,9 +413,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
