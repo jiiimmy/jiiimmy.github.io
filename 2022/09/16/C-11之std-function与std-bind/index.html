@@ -6,15 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Tag: c++ | Jimmy的博客</title>
+  <title>C++11之std::function与std::bind | Jimmy的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="华南理工大学18级硕士，目前就职于小鹏自动驾驶中心 C++er">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Jimmy的博客">
-<meta property="og:url" content="http://example.com/tags/c/index.html">
+  <meta name="description" content="简介：c++11中新引入的std::function是一个可调用对象包装器，它是一个类模板，可以容纳除了类成员函数指针之外的所有可调用对象，它可以用统一的方式处理函数、函数对象、函数指针、lambda表达式以及std::bind对象等，并允许保存和延迟它们的执行。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++11之std::function与std::bind">
+<meta property="og:url" content="http://example.com/2022/09/16/C-11%E4%B9%8Bstd-function%E4%B8%8Estd-bind/index.html">
 <meta property="og:site_name" content="Jimmy的博客">
-<meta property="og:description" content="华南理工大学18级硕士，目前就职于小鹏自动驾驶中心 C++er">
+<meta property="og:description" content="简介：c++11中新引入的std::function是一个可调用对象包装器，它是一个类模板，可以容纳除了类成员函数指针之外的所有可调用对象，它可以用统一的方式处理函数、函数对象、函数指针、lambda表达式以及std::bind对象等，并允许保存和延迟它们的执行。">
 <meta property="og:locale">
+<meta property="article:published_time" content="2022-09-16T22:38:22.000Z">
+<meta property="article:modified_time" content="2022-09-19T14:05:47.633Z">
 <meta property="article:author" content="Jimmy">
 <meta property="article:tag" content="程序猿、C++、Python">
 <meta name="twitter:card" content="summary">
@@ -159,150 +161,206 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
+            <article id="post-C-11之std-function与std-bind"
+  class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      C++11之std::function与std::bind
+    </h1>
+  
+
+          <!--显示阅读次数-->
+          
+            <br />
+            <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+              <span class="icon-sort"></span>
+              <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+                阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+              </span>
+            </a>
             
-  
-  
-    
-    
+              
+                <a href="/2022/09/16/C-11%E4%B9%8Bstd-function%E4%B8%8Estd-bind/" class="archive-article-date">
+  	<time datetime="2022-09-16T22:38:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-09-16</time>
+</a>
+                  
+                    
+                      <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数约为 </span>
+        <span class="post-count">1.7k</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长约为 </span>
+        <span class="post-count">8min</span>
+      </span>
+    </span>
+</div>
+                        
+
+      </header>
       
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/08/29/%E6%B5%85%E8%B0%88const%E5%9C%A8C-%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2022-08-29T13:31:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/08/29/%E6%B5%85%E8%B0%88const%E5%9C%A8C-%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8/">浅谈const在C++中的使用</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
+        <div class="article-entry" itemprop="articleBody">
           
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">const</a>
-        		</li>
-      		
-		</ul>
-	</div>
+                    <p>简介：c++11中新引入的std::function是一个可调用对象包装器，它是一个类模板，可以容纳除了类成员函数指针之外的所有可调用对象，它可以用统一的方式处理函数、函数对象、函数指针、lambda表达式以及std::bind对象等，并允许保存和延迟它们的执行。</p>
+<span id="more"></span>
+<p>使用时需要包括头文件 <functional></functional></p>
+<h1 id="std-function"><a href="#std-function" class="headerlink" title="std::function"></a>std::function</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;functional&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">(<span class="type">int</span> a)</span> </span>&#123; std::cout &lt;&lt; <span class="string">&quot; call normal func , val = &quot;</span> &lt;&lt; a &lt;&lt; std::endl; &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="function"><span class="type">void</span> <span class="title">foo1</span><span class="params">(T a)</span> </span>&#123;</span><br><span class="line">  std::cout &lt;&lt; <span class="string">&quot; call normal template func , val = &quot;</span> &lt;&lt; a &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> a)</span> </span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot; call functor() , val = &quot;</span> &lt;&lt; a &lt;&lt; std::endl;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">class</span> <span class="title class_">Foo1</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">operator</span><span class="params">()</span><span class="params">(T a)</span> </span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot; call template functor() , val = &quot;</span> &lt;&lt; a &lt;&lt; std::endl;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Bar</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(<span class="type">int</span> a)</span> </span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot; call class member func , val = &quot;</span> &lt;&lt; a &lt;&lt; std::endl;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">func1</span><span class="params">(<span class="type">int</span> a)</span> </span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot; call class member static func , val = &quot;</span> &lt;&lt; a &lt;&lt; std::endl;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">class</span> <span class="title class_">Bar1</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(T a)</span> </span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot; call template class member func , val = &quot;</span> &lt;&lt; a &lt;&lt; std::endl;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">func1</span><span class="params">(T a)</span> </span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot; call template class member static func , val = &quot;</span> &lt;&lt; a</span><br><span class="line">              &lt;&lt; std::endl;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">using</span> Callbacker = std::function&lt;<span class="built_in">void</span>(T)&gt; ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  std::function&lt;<span class="type">void</span>(<span class="type">int</span>)&gt; cb;</span><br><span class="line">  <span class="comment">//Callbacker&lt;int&gt; cb; 也可以这样声明</span></span><br><span class="line"></span><br><span class="line">  cb = foo;</span><br><span class="line">  <span class="built_in">cb</span>(<span class="number">0</span>); <span class="comment">//普通函数</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">void</span> (*fnc_ptr)(<span class="type">int</span>);</span><br><span class="line">  fnc_ptr = foo;</span><br><span class="line">  <span class="built_in">cb</span>(<span class="number">1</span>); <span class="comment">//普通函数指针</span></span><br><span class="line"></span><br><span class="line">  cb = [](<span class="type">int</span> a) &#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot; call lambda func, val = &quot;</span> &lt;&lt; a &lt;&lt; std::endl;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="built_in">cb</span>(<span class="number">2</span>); <span class="comment">// lambda表达式</span></span><br><span class="line"></span><br><span class="line">  cb = foo1&lt;<span class="type">int</span>&gt;;</span><br><span class="line">  <span class="built_in">cb</span>(<span class="number">3</span>); <span class="comment">//模板函数</span></span><br><span class="line"></span><br><span class="line">  cb = <span class="built_in">Foo</span>();</span><br><span class="line">  <span class="built_in">cb</span>(<span class="number">4</span>);</span><br><span class="line"></span><br><span class="line">  cb = <span class="built_in">Foo1</span>&lt;<span class="type">int</span>&gt;();</span><br><span class="line">  <span class="built_in">cb</span>(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">  Bar b;</span><br><span class="line">  <span class="comment">// cb = Bar::func;</span></span><br><span class="line">  <span class="comment">// cb = b.func;</span></span><br><span class="line">  cb = std::<span class="built_in">bind</span>(&amp;Bar::func, &amp;b, std::placeholders::_1);</span><br><span class="line">  <span class="built_in">cb</span>(<span class="number">6</span>);</span><br><span class="line"></span><br><span class="line">  cb = Bar::func1;</span><br><span class="line">  <span class="built_in">cb</span>(<span class="number">7</span>);</span><br><span class="line"></span><br><span class="line">  Bar1&lt;<span class="type">int</span>&gt; b1;</span><br><span class="line">  cb = std::<span class="built_in">bind</span>(&amp;Bar1&lt;<span class="type">int</span>&gt;::func, &amp;b1, std::placeholders::_1);</span><br><span class="line">  <span class="built_in">cb</span>(<span class="number">8</span>);</span><br><span class="line"></span><br><span class="line">  cb = Bar1&lt;<span class="type">int</span>&gt;::func1;</span><br><span class="line">  <span class="built_in">cb</span>(<span class="number">9</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>程序的输出为：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">call normal func , val = 0</span><br><span class="line">call normal func , val = 1</span><br><span class="line">call lambda func, val = 2</span><br><span class="line">call normal template func , val = 3</span><br><span class="line">call functor() , val = 4</span><br><span class="line">call template functor() , val = 5</span><br><span class="line">call class member func , val = 6</span><br><span class="line">call class member static func , val = 7</span><br><span class="line">call template class member func , val = 8</span><br><span class="line">call template class member static func , val = 9</span><br></pre></td></tr></table></figure>
+<p>在上面的代码中 function 的声明方式为 std::function&lt;void(int)&gt;, 一般形式的声明为 std::function&lt;函数类型&gt;, 括号里的是函数的<strong>参数</strong>，括号外的是函数<strong>返回值</strong><br>对于类的非静态成员函数, function 必须借用 std::bind 才能够进行封装,在封装模板函数时，需要显示的将模板函数实例化<br>在上面的代码中，我们显示的定义了函数的参数类型和返回值类型，我们也能够对 function 模板化，如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T,<span class="keyword">typename</span> T2&gt;</span><br><span class="line"><span class="keyword">using</span> Callbacker = std::function&lt;<span class="built_in">T2</span>(T)&gt; ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">double</span> <span class="title">convert</span><span class="params">(<span class="type">int</span> a)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">static_cast</span>&lt;<span class="type">double</span>&gt;(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Callbacker&lt;<span class="type">int</span>,<span class="type">double</span>&gt; cb1;<span class="comment">//声明一个参数为 int, 返回值为 double 的 function 对象</span></span><br><span class="line">    cb1 = convert;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以根据实际需求来定义模板的个数</p>
+<h1 id="std-bind"><a href="#std-bind" class="headerlink" title="std::bind"></a>std::bind</h1><p>std::bind 可以看作一个通用的函数适配器，<strong>它转化一个可调用对象成一个新的可调用对象，来匹配原对象的参数列表</strong>，std::bind 可以将可调用对象与其参数一起进行绑定，绑定后的结果可以用 std::function 保存，其主要有如下作用：</p>
+<ul>
+<li><strong>将可调用对象与其参数绑定形成一个仿函数</strong></li>
+<li><strong>绑定部分参数为定值，减少可调用对象的入参个数</strong></li>
+<li><strong>调整函数入参顺序</strong></li>
+</ul>
+<p>使用 bind 的一般形式为：<br><code>auto newCallback = std::bind(callback, arg_list);</code><br>即新的可调用对象是封装了旧调用对象和它的参数列表，在 arg_list 中有时会包含形如 _n 的名字，其中 n 为整数，它表示占位符，表示 newCallback 的参数，他们占据了传递给 newCallback 参数的问题。 std::placeholders::_1 表示 newCallback 的第一个参数，std::placeholders::_2为第二个，以此类推，看如下代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;functional&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(<span class="type">int</span> a, <span class="type">double</span> b, <span class="type">char</span> c)</span> </span>&#123;</span><br><span class="line">  std::cout &lt;&lt; <span class="string">&quot;call normal func&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">  std::cout &lt;&lt; <span class="string">&quot;a = &quot;</span> &lt;&lt; a &lt;&lt; std::endl;</span><br><span class="line">  std::cout &lt;&lt; <span class="string">&quot;b = &quot;</span> &lt;&lt; b &lt;&lt; std::endl;</span><br><span class="line">  std::cout &lt;&lt; <span class="string">&quot;c = &quot;</span> &lt;&lt; c &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Foo</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">operator</span><span class="params">()</span><span class="params">(<span class="type">int</span> a, <span class="type">double</span> b, <span class="type">char</span> c)</span> </span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;call functor()&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;a = &quot;</span> &lt;&lt; a &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;b = &quot;</span> &lt;&lt; b &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;c = &quot;</span> &lt;&lt; c &lt;&lt; std::endl;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Bar</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(<span class="type">int</span>&amp; a, <span class="type">double</span>&amp; b, <span class="type">char</span> c)</span> </span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;call class member func &quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;a = &quot;</span> &lt;&lt; a &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;b = &quot;</span> &lt;&lt; b &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;c = &quot;</span> &lt;&lt; c &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;b ptr = &quot;</span> &lt;&lt; &amp;b &lt;&lt; std::endl;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">double</span> b = <span class="number">2.1</span>;</span><br><span class="line">  std::cout &lt;&lt; <span class="string">&quot;b ptr = &quot;</span> &lt;&lt; &amp;b &lt;&lt; std::endl;</span><br><span class="line">  <span class="keyword">auto</span> bindfunc = std::<span class="built_in">bind</span>(func, std::placeholders::_1, b, <span class="string">&#x27;y&#x27;</span>);</span><br><span class="line">  <span class="built_in">bindfunc</span>(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">auto</span> bindfunc2 =</span><br><span class="line">      std::<span class="built_in">bind</span>(<span class="built_in">Foo</span>(), std::placeholders::_1, std::placeholders::_2, <span class="string">&#x27;y&#x27;</span>);</span><br><span class="line">  <span class="built_in">bindfunc2</span>(<span class="number">10</span>, <span class="number">10.1</span>);</span><br><span class="line"></span><br><span class="line">  Bar bar;</span><br><span class="line">  <span class="keyword">auto</span> bindfunc3 = std::<span class="built_in">bind</span>(&amp;Bar::func, &amp;bar, std::placeholders::_2,</span><br><span class="line">                             std::placeholders::_1, <span class="string">&#x27;y&#x27;</span>);</span><br><span class="line">  <span class="built_in">bindfunc3</span>(<span class="number">20.1</span>, <span class="number">20</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">auto</span> cb = [](<span class="type">int</span> a, <span class="type">double</span> b, <span class="type">char</span> c) &#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;call lambda func &quot;</span> &lt;&lt; a &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;a = &quot;</span> &lt;&lt; a &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;b = &quot;</span> &lt;&lt; b &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;c = &quot;</span> &lt;&lt; c &lt;&lt; std::endl;</span><br><span class="line">  &#125;;</span><br><span class="line">  std::function&lt;<span class="type">void</span>(<span class="type">int</span>,<span class="type">double</span>,<span class="type">char</span>)&gt; bindfunc4 = std::<span class="built_in">bind</span>(cb, std::placeholders::_3, std::placeholders::_2,</span><br><span class="line">                             std::placeholders::_1);</span><br><span class="line">  <span class="built_in">bindfunc4</span>(<span class="string">&#x27;z&#x27;</span>, <span class="number">30.1</span>, <span class="number">30</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>程序的输出为:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">a ptr = 0x7fffe8c7dffc</span><br><span class="line">b ptr = 0x7fffe8c7e000</span><br><span class="line">call normal func</span><br><span class="line">a = 2</span><br><span class="line">b = 2.1</span><br><span class="line">c = y</span><br><span class="line">a ptr = 0x7fffe8c7dffc</span><br><span class="line">b ptr = 0x7fffe8c7e030</span><br><span class="line">call functor()</span><br><span class="line">a = 10</span><br><span class="line">b = 10.1</span><br><span class="line">c = y</span><br><span class="line">call class member func </span><br><span class="line">a = 20</span><br><span class="line">b = 20.1</span><br><span class="line">c = y</span><br><span class="line">call lambda func 30</span><br><span class="line">a = 30</span><br><span class="line">b = 30.1</span><br><span class="line">c = z</span><br></pre></td></tr></table></figure>
+<p>由上面的代码可以得出以下结论：</p>
+<ul>
+<li>预绑定的参数是以<strong>值传递</strong>的形式，不预绑定的参数要用 std::placeholders::_n 的形式占位（即占位符），从_1开始，依次递增，是以<strong>引用传递</strong>的形式；</li>
+<li>std::placeholders_n 表示新的可调用对象的第几个参数，而且与原函数的该占位符所在位置的进行匹配，可以调整 _n 的顺序来改变原函数的入参顺序；</li>
+<li><strong>bind绑定类成员函数时，第一个参数表示对象的成员函数的指针，第二个参数表示对象的地址，这是因为对象的成员函数需要有this指针</strong>。并且编译器不会将对象的成员函数隐式转换成函数指针，需要通过&amp;手动转换；</li>
+<li>std::bind的返回值是可调用实体，可以直接赋给 std::function。</li>
+</ul>
 
-          
+                      
 
+                        
         </div>
-        <div class="clearfix"></div>
-    </header>
+        <div class="article-info article-info-index">
+          
+              
+                
+
+                  
+
+                      
+                        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/09/16/C-11%E4%B9%8Bstd-function%E4%B8%8Estd-bind/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+                          
+                            <div class="clearfix"></div>
+        </div>
   </div>
 </article>
+
   
+<nav id="article-nav">
+  
+  
+    <a href="/2022/08/31/Bazel%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Bazel学习笔记</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/08/28/google-test-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2022-08-28T12:43:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-28</time>
-</a>
+      <aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/08/28/google-test-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Google Test 学习笔记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">gtest</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#std-function"><span class="toc-number">1.</span> <span class="toc-text">std::function</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#std-bind"><span class="toc-number">2.</span> <span class="toc-text">std::bind</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/08/27/static%E5%85%B3%E9%94%AE%E5%AD%97%E5%9C%A8C-%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2022-08-27T08:44:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/08/27/static%E5%85%B3%E9%94%AE%E5%AD%97%E5%9C%A8C-%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8/">static关键字在C++中的使用</a>
-    </h1>
-  
+        
+    </div>
+</aside>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">static</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
+        
           
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+                
 
-    
+                      
 
+                            
 
+                                
+                                      
           </div>
         </div>
       </div>
@@ -326,9 +384,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

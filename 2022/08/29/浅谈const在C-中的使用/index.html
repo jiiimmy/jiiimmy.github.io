@@ -16,7 +16,7 @@
 <meta property="og:description" content="最近在工作中用const的时候发现自己对const的理解是一种一知半解的状态，打算用这篇博客系统性总结const的用法">
 <meta property="og:locale">
 <meta property="article:published_time" content="2022-08-29T13:31:40.000Z">
-<meta property="article:modified_time" content="2022-08-30T16:39:18.328Z">
+<meta property="article:modified_time" content="2022-09-14T17:20:31.467Z">
 <meta property="article:author" content="Jimmy">
 <meta property="article:tag" content="c++">
 <meta property="article:tag" content="const">
@@ -195,7 +195,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数约为 </span>
-        <span class="post-count">603</span>
+        <span class="post-count">1.5k</span>
       </span>
     </span>
 
@@ -204,7 +204,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-hourglass-half"></i>
         <span class="post-meta-item-text">  阅读时长约为 </span>
-        <span class="post-count">2min</span>
+        <span class="post-count">6min</span>
       </span>
     </span>
 </div>
@@ -225,38 +225,45 @@
 <p>用gdb在第9行打断点查看程序运行过程中变量a的变化情况，如下：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">(gdb) n</span><br><span class="line">5           const int a =7;</span><br><span class="line">(gdb) n</span><br><span class="line">6           int* p = (int*)&amp;a;</span><br><span class="line">(gdb) print(a)</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">1 = 7</span></span><br><span class="line">(gdb) n</span><br><span class="line">7           *p = 8;</span><br><span class="line">(gdb) n</span><br><span class="line">8           std::cout &lt;&lt; &quot;a = &quot; &lt;&lt;a &lt;&lt;std::endl;</span><br><span class="line">(gdb) print(a)</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">2 = 8</span></span><br><span class="line">(gdb) n</span><br><span class="line">a = 7</span><br></pre></td></tr></table></figure>
 <p>对于变量a，我们声明的是const，然后我们通过将a的指针强转成int*给p，通过*p&#x3D;8来改变a指针指的内容为8，通过gdb我们发现a的值确实被修改成了8，但是因为我们对a加了const关键字，会让编译器对其进行优化，在程序端看a一直为7，所以我们看到输出 <code>a = 7</code>。对于变量b，在加上const的时候同时加上了volatil让编译器不要进行优化，这里我们通过指针去修改b的值就能体现到程序中的b中，但是这样就失去了const本身的意义，故我们在确定一个变量为const后，就不要试图通过指针去修改它，这样往往会产生意想不到的行为</p>
+<h2 id="const与指针变量"><a href="#const与指针变量" class="headerlink" title="const与指针变量"></a>const与指针变量</h2><p>const 修饰指针变量有以下三种情况</p>
+<ul>
+<li><p>const 修饰指针指向的内容，此时内容为不可变量，通常称为常量指针,如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iosteam&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">3</span>;</span><br><span class="line">    <span class="type">int</span> b = <span class="number">4</span>;</span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> *p = &amp;a; <span class="comment">//通常称p为常量指针</span></span><br><span class="line">    <span class="comment">//int const *p = &amp;a 也可以这样写</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot; *p = &quot;</span> &lt;&lt; *p &lt;&lt; std::endl;</span><br><span class="line">    <span class="comment">//*p = 5; 错误，不能通过指针p来修改p所指对象</span></span><br><span class="line">    a = <span class="number">5</span>;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot; *p = &quot;</span> &lt;&lt; *p &lt;&lt; std::endl;</span><br><span class="line">    p = &amp;b;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot; *p = &quot;</span> &lt;&lt; *p &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这段代码的输出为</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">*p = 3</span><br><span class="line">*p = 5</span><br><span class="line">*p = 4</span><br></pre></td></tr></table></figure>
+<p>这里指针常量的意思是指不能通过指针 p 来修改指针所指的变量a的内容，但仍然可以直接通过直接修改变量 a 来修改内容。同时，常量指针可以让其指向另一个变量</p>
+</li>
+<li><p>const 修饰指针，此时指针为不可变量，通常称为指针常量<br>看下面这段代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">3</span>;</span><br><span class="line">    <span class="type">int</span> b = <span class="number">4</span>;</span><br><span class="line">    <span class="type">int</span>* <span class="type">const</span> p = &amp;a;</span><br><span class="line">    <span class="comment">//p = &amp;b; 错误，const修饰p，p只能指向a所在的地址</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot; *p = &quot;</span> &lt;&lt; *p &lt;&lt; std::endl;</span><br><span class="line">    *p = <span class="number">5</span>;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot; *p = &quot;</span> &lt;&lt; *p &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出为：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*p = 3</span><br><span class="line">*p = 5</span><br></pre></td></tr></table></figure>
+<p>这里常量指针的意思是指不能修改指针 p 所指的地址，但是可以通过 *p 来改变其所指地址里的内容。</p>
+</li>
+<li><p>const 同时修饰指针和指向的内容，指针本身是一个常量，其所指内容也是一个常量，又称为指向常量的指针常量。</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>总结</strong>：左定值，右定向，const修饰不变量（左右是指 const 与 * 的位置关系）</p>
+</blockquote>
+<h2 id="const与普通函数参数"><a href="#const与普通函数参数" class="headerlink" title="const与普通函数参数"></a>const与普通函数参数</h2><p>对于 const 修饰函数参数大致可以分为四种情况</p>
+<ol>
+<li>值传递</li>
+<li>常量指针</li>
+<li>指针常量</li>
+<li>引用传递<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">test1</span><span class="params">(<span class="type">const</span> <span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//++val; 不允许</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;val ptr = &quot;</span> &lt;&lt; &amp;val &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test2</span><span class="params">(<span class="type">const</span> <span class="type">int</span>* val)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//++(* val); 不允许</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;val ptr = &quot;</span> &lt;&lt; val &lt;&lt; std::endl;</span><br><span class="line">    <span class="type">int</span> b=<span class="number">6</span>;</span><br><span class="line">    val = &amp;b;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;b   ptr = &quot;</span> &lt;&lt; &amp;b &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;val ptr = &quot;</span> &lt;&lt; val &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test3</span><span class="params">(<span class="type">int</span>* <span class="type">const</span> val)</span> </span>&#123;</span><br><span class="line">    ++(* val);</span><br><span class="line">    <span class="comment">//int b = 3; 不允许</span></span><br><span class="line">    <span class="comment">//val = &amp;b;</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;val ptr = &quot;</span> &lt;&lt; val &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test4</span><span class="params">(<span class="type">const</span> <span class="type">int</span>&amp; val)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//++val; 不允许</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;val ptr = &quot;</span> &lt;&lt; &amp;val &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">3</span>;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;a   ptr = &quot;</span> &lt;&lt; &amp;a &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;---------------&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    <span class="built_in">test1</span>(a);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;---------------&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    <span class="built_in">test2</span>(&amp;a);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;---------------&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    <span class="built_in">test3</span>(&amp;a);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;---------------&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    <span class="built_in">test4</span>(a);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+代码的输出为：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">a   ptr = 000000E1BFEFFA94</span><br><span class="line">---------------</span><br><span class="line">val ptr = 000000E1BFEFFA70</span><br><span class="line">---------------</span><br><span class="line">val ptr = 000000E1BFEFFA94</span><br><span class="line">b   ptr = 000000E1BFEFF974</span><br><span class="line">val ptr = 000000E1BFEFF974</span><br><span class="line">---------------</span><br><span class="line">val ptr = 000000E1BFEFFA94</span><br><span class="line">---------------</span><br><span class="line">val ptr = 000000E1BFEFFA94</span><br></pre></td></tr></table></figure>
+由上面的代码和输出我们可以得出以下结论：</li>
+</ol>
+<ul>
+<li>使用 const 值传递参数时，在函数内不能修改 val ，并且 val 与 a 的地址不一样，即生成了一个临时变量</li>
+<li>使用常量指针作为参数时，在函数内不能通过指针来修改变量 val ，但是可以修改指针本身指向不同的变量</li>
+<li>使用指针常量作为参数时，在函数内可以通过指针来修改变量 val ，但是不能修改指针本身所指的变量</li>
+<li>使用 const 引用作为参数时，在函数内不能修改 val, 同时 val 的地址与 a 一样，没有产生临时变量</li>
+</ul>
 
                       
 
                         
-                          <div class="page-reward">
-                            <a href="javascript:;" class="page-reward-btn tooltip-top">
-                              <div class="tooltip tooltip-east">
-                                <span class="tooltip-item">
-                                  赏
-                                </span>
-                                <span class="tooltip-content">
-                                  <span class="tooltip-text">
-                                    <span class="tooltip-inner">
-                                      <p class="reward-p"><i class="icon icon-quo-left"></i>
-                                        谢谢你请我吃糖果<i class="icon icon-quo-right"></i>
-                                      </p>
-                                      <div class="reward-box">
-                                        
-                                          <div class="reward-box-item">
-                                            <img class="reward-img" src="/img/zhifubao.png">
-                                            <span class="reward-type">支付宝</span>
-                                          </div>
-                                          
-                                            
-                                      </div>
-                                    </span>
-                                  </span>
-                                </span>
-                              </div>
-                            </a>
-                          </div>
-                          
         </div>
         <div class="article-info article-info-index">
           
@@ -340,6 +347,15 @@
   
 <nav id="article-nav">
   
+    <a href="/2022/08/31/Bazel%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Bazel学习笔记
+        
+      </div>
+    </a>
+  
   
     <a href="/2022/08/28/google-test-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">Google Test 学习笔记</div>
@@ -369,7 +385,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%8D%E5%90%8C%E5%9C%BA%E6%99%AF%E7%9A%84const%E7%94%A8%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">不同场景的const用法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#const%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B%E5%8F%98%E9%87%8F"><span class="toc-number">2.1.</span> <span class="toc-text">const与基础类型变量</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%8D%E5%90%8C%E5%9C%BA%E6%99%AF%E7%9A%84const%E7%94%A8%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">不同场景的const用法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#const%E4%B8%8E%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B%E5%8F%98%E9%87%8F"><span class="toc-number">2.1.</span> <span class="toc-text">const与基础类型变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#const%E4%B8%8E%E6%8C%87%E9%92%88%E5%8F%98%E9%87%8F"><span class="toc-number">2.2.</span> <span class="toc-text">const与指针变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#const%E4%B8%8E%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0"><span class="toc-number">2.3.</span> <span class="toc-text">const与普通函数参数</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -502,10 +518,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">gtest</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">c++</a>
               </li>
              
@@ -514,11 +526,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color1">gtest</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">const</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
             
             <div class="clearfix"></div>

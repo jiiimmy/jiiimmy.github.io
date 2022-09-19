@@ -6,18 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Tag: c++ | Jimmy的博客</title>
+  <title>Bazel学习笔记 | Jimmy的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="华南理工大学18级硕士，目前就职于小鹏自动驾驶中心 C++er">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Jimmy的博客">
-<meta property="og:url" content="http://example.com/tags/c/index.html">
+  <meta name="description" content="Bazel简介Bazel 是一个开源构建和测试工具，类似于 Make、Maven 和 Gradle。它使用人类可读的简要构建语言。Bazel 支持多种语言的项目，并针对多个平台构建输出。Bazel 支持跨多个代码库和大量用户的大型代码库。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bazel学习笔记">
+<meta property="og:url" content="http://example.com/2022/08/31/Bazel%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Jimmy的博客">
-<meta property="og:description" content="华南理工大学18级硕士，目前就职于小鹏自动驾驶中心 C++er">
+<meta property="og:description" content="Bazel简介Bazel 是一个开源构建和测试工具，类似于 Make、Maven 和 Gradle。它使用人类可读的简要构建语言。Bazel 支持多种语言的项目，并针对多个平台构建输出。Bazel 支持跨多个代码库和大量用户的大型代码库。">
 <meta property="og:locale">
+<meta property="og:image" content="https://bazel.build/static/docs/images/cpp-tutorial-stage1.png">
+<meta property="og:image" content="https://bazel.build/static/docs/images/cpp-tutorial-stage2.png">
+<meta property="og:image" content="https://bazel.build/static/docs/images/cpp-tutorial-stage3.png">
+<meta property="article:published_time" content="2022-09-01T00:30:01.000Z">
+<meta property="article:modified_time" content="2022-09-19T14:05:47.633Z">
 <meta property="article:author" content="Jimmy">
 <meta property="article:tag" content="程序猿、C++、Python">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bazel.build/static/docs/images/cpp-tutorial-stage1.png">
   
     <link rel="alternative" href="/atom.xml" title="Jimmy的博客" type="application/atom+xml">
   
@@ -159,150 +165,247 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
+            <article id="post-Bazel学习笔记"
+  class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Bazel学习笔记
+    </h1>
+  
+
+          <!--显示阅读次数-->
+          
+            <br />
+            <a class="cloud-tie-join-count" href="javascript:void(0);" style="color:gray;font-size:14px;">
+              <span class="icon-sort"></span>
+              <span id="busuanzi_container_page_pv" style="color:#ef7522;font-size:14px;">
+                阅读数: <span id="busuanzi_value_page_pv"></span>次 &nbsp;&nbsp;
+              </span>
+            </a>
             
-  
-  
-    
-    
+              
+                <a href="/2022/08/31/Bazel%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2022-09-01T00:30:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-31</time>
+</a>
+                  
+                    
+                      <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数约为 </span>
+        <span class="post-count">2.2k</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长约为 </span>
+        <span class="post-count">9min</span>
+      </span>
+    </span>
+</div>
+                        
+
+      </header>
       
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/08/29/%E6%B5%85%E8%B0%88const%E5%9C%A8C-%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2022-08-29T13:31:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/08/29/%E6%B5%85%E8%B0%88const%E5%9C%A8C-%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8/">浅谈const在C++中的使用</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
+        <div class="article-entry" itemprop="articleBody">
           
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">const</a>
-        		</li>
-      		
-		</ul>
-	</div>
+                    <h1 id="Bazel简介"><a href="#Bazel简介" class="headerlink" title="Bazel简介"></a>Bazel简介</h1><p>Bazel 是一个开源构建和测试工具，类似于 Make、Maven 和 Gradle。它使用人类可读的简要构建语言。Bazel 支持多种语言的项目，并针对多个平台构建输出。Bazel 支持跨多个代码库和大量用户的大型代码库。</p>
+<span id="more"></span>
+<h2 id="Bazel的优点"><a href="#Bazel的优点" class="headerlink" title="Bazel的优点"></a>Bazel的优点</h2><ul>
+<li>Bazel 会根据库、二进制文件、脚本和数据集的概念进行操作，暂时避免对编译器和编译器等工具进行单独调用的复杂性链接器</li>
+<li>Bazel 会缓存之前完成的所有工作，并跟踪对文件内容和构建命令所做的更改。 因此Bazel 仅重新构建更改及其依赖项的内容。如需进一步加快构建速度，可以将项目设置为以高度并行且增量的方式进行构建</li>
+<li>跨平台，Bazel 可在 Linux、macOS 和 Windows 上运行</li>
+<li>可扩展，支持扩展 Bazel 以支持任何其他语言或框架</li>
+</ul>
+<h2 id="Bazel的一些概念"><a href="#Bazel的一些概念" class="headerlink" title="Bazel的一些概念"></a>Bazel的一些概念</h2><h3 id="Workspace（工作区）"><a href="#Workspace（工作区）" class="headerlink" title="Workspace（工作区）"></a>Workspace（工作区）</h3><p>工作区可以理解为一个repo或者一个工程，其包含了构建软件所需要的源文件；一个Workspace的根目录下需要有一个 <code>WORKSPACE</code> 文件，该文件可以为空，也可以包含构建输出所需的外部依赖项的引用。包含名为 WORKSPACE 的文件的目录被视为工作区的根。当一个目录基于包含 WORKSPACE 文件的子目录时，Bazel 将在该工作区中忽略任何子目录树</p>
+<h3 id="Packages（包）"><a href="#Packages（包）" class="headerlink" title="Packages（包）"></a>Packages（包）</h3><p>代码库中的代码组织的主要单元是软件包。软件包是相关文件的集合，以及有关如何使用这些文件生成输出工件的规范。一个包含 BUILD 文件的目录和其目录下的其他所有文件和子文件夹（不包含 BUILD 文件的子文件夹除外）</p>
+<h3 id="Targets（目标）"><a href="#Targets（目标）" class="headerlink" title="Targets（目标）"></a>Targets（目标）</h3><p>软件包是目标的容器，在软件包的 BUILD 文件中定义。 通常target是指一个构建目标；由一个规则（rule）给出，必须有一个名字；</p>
+<p>以官方示例代码为例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cc_binary</span>(      <span class="comment">//编译规则，表示生成一个binary</span></span><br><span class="line">    name = <span class="string">&quot;hello-world&quot;</span>,       <span class="comment">//target名字，即生成的binary名字</span></span><br><span class="line">    srcs = [<span class="string">&quot;hello-world.cc&quot;</span>],      <span class="comment">//源文件，是一个列表，可以是多个源文件一起</span></span><br><span class="line">    deps = [</span><br><span class="line">        <span class="string">&quot;:hello-greet&quot;</span>,         <span class="comment">//依赖项，：hello-greet 表示依赖在同级目录下的 hello-greet 的 target</span></span><br><span class="line">        <span class="string">&quot;//lib:hello-time&quot;</span>,     <span class="comment">//依赖项，//lib:hello-time 表示依赖在项目根目录下的lib目录下的 hello-time 的target</span></span><br><span class="line">    ],</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>可以使用 “…” 表示 package 中的所有 targets ，例如 <code>//test/...</code>表示 test package 中的所有targets.<br>引用Target的语法规则是：<br><code>[@workspace][//package/path][:][target]</code><br>当前主项目仓库 (repository) 的名称为 @，可以省略不写</li>
+</ul>
+<h3 id="targets的可见性管理"><a href="#targets的可见性管理" class="headerlink" title="targets的可见性管理"></a>targets的可见性管理</h3><p>bazel中所有的target都有可见性属性，如果没设置则用package中设置的默认可见性，package中可以设置以下4种可见性：</p>
+<blockquote>
+<p>“&#x2F;&#x2F;visibility:public”  # 完全公开，本worksapce及其他workspace都可以访问  （#为BUILD里注释的方法）<br>“&#x2F;&#x2F;visibility:private” # 私有，仅同一package内可访问<br>“@my_repo&#x2F;&#x2F;foo&#x2F;bar:<strong>pkg</strong>“    # 指定某些特定的Target可以访问，这里”<strong>pkg</strong>“是一种特殊语法，表示该package内所有Targets<br>“&#x2F;&#x2F;foo&#x2F;bar:<strong>subpackages</strong>“ # 指定某些特定的Target可以访问，这里”<strong>subpackages</strong>“是一种特殊语法，表示该package及其内部所有package的所有Targets</p>
+</blockquote>
+<h1 id="使用Bazel构建C-项目"><a href="#使用Bazel构建C-项目" class="headerlink" title="使用Bazel构建C++项目"></a>使用Bazel构建C++项目</h1><p>克隆官方给出的示例代码到本地：<br><code>git clone https://github.com/bazelbuild/examples</code><br>进入cpp-tutorial目录，代码的结构如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">├── stage1</span><br><span class="line">│   ├── main</span><br><span class="line">│   │   ├── BUILD</span><br><span class="line">│   │   └── hello-world.cc</span><br><span class="line">│   ├── README.md</span><br><span class="line">│   └── WORKSPACE</span><br><span class="line">├── stage2</span><br><span class="line">│   ├── main</span><br><span class="line">│   │   ├── BUILD</span><br><span class="line">│   │   ├── hello-greet.cc</span><br><span class="line">│   │   ├── hello-greet.h</span><br><span class="line">│   │   └── hello-world.cc</span><br><span class="line">│   ├── README.md</span><br><span class="line">│   └── WORKSPACE</span><br><span class="line">└── stage3</span><br><span class="line">    ├── lib</span><br><span class="line">    │   ├── BUILD</span><br><span class="line">    │   ├── hello-time.cc</span><br><span class="line">    │   └── hello-time.h</span><br><span class="line">    ├── main</span><br><span class="line">    │   ├── BUILD</span><br><span class="line">    │   ├── hello-greet.cc</span><br><span class="line">    │   ├── hello-greet.h</span><br><span class="line">    │   └── hello-world.cc</span><br><span class="line">    ├── README.md</span><br><span class="line">    └── WORKSPACE</span><br></pre></td></tr></table></figure>
+<h2 id="stage1-构建单个目标"><a href="#stage1-构建单个目标" class="headerlink" title="stage1 构建单个目标"></a>stage1 构建单个目标</h2><p>在 stage1 中工作区目录下有一个 main 目录，其中包含了 BUILD 文件和 hello-world.cc 文件，BUILD 文件如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">load</span>(<span class="string">&quot;@rules_cc//cc:defs.bzl&quot;</span>, <span class="string">&quot;cc_binary&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">cc_binary</span>(</span><br><span class="line">    name = <span class="string">&quot;hello-world&quot;</span>,</span><br><span class="line">    srcs = [<span class="string">&quot;hello-world.cc&quot;</span>],</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>BUILD 文件首先通过 load 函数将 @rules_cc&#x2F;&#x2F;cc:defs.bzl 文件中的 cc_binary 函数导入，该函数用以定义构建 C++ 可执行文件的规则；而后调用 cc_binary 函数定义构建目标 (target) hello-world 的规则，其中参数 src 指定了源文件<br>运行以下指令进行构建：<br><code>bazel build //main:hello-world</code></p>
+<p>输出如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">INFO: Analyzed target //main:hello-world (0 packages loaded, 0 targets configured).</span><br><span class="line">INFO: Found 1 target...</span><br><span class="line">Target //main:hello-world up-to-date:</span><br><span class="line">  bazel-bin/main/hello-world</span><br><span class="line">INFO: Elapsed time: 0.168s, Critical Path: 0.00s</span><br><span class="line">INFO: 1 process: 1 internal.</span><br><span class="line">INFO: Build completed successfully, 1 total action</span><br></pre></td></tr></table></figure>
+<p>在构建成功后会在项目根目录（WORKSPACE同级目录）下生成<code>bazel-bin</code>, <code>bazel-out</code>, <code>bazel-stage1</code>, <code>bazel-testlogs</code> 四个文件夹，用 ll 可以看出他们只是软链，真正保存的地方是在home目录的.cache&#x2F;bazel目录下。我们想要的<code>hello-world</code>可执行程序在<code>bazel-bin/main</code>目录下，在项目根目录下执行<code>bazel-bin/main/hello-world</code><br>可以得到输出：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Hello world</span><br><span class="line">Thu Sep  1 14:10:02 2022</span><br></pre></td></tr></table></figure>
+<p>stage1 的依赖关系图为：<br><img src="https://bazel.build/static/docs/images/cpp-tutorial-stage1.png" alt="hello-world关系依赖图"></p>
+<h2 id="stage2-构建多个目标"><a href="#stage2-构建多个目标" class="headerlink" title="stage2 构建多个目标"></a>stage2 构建多个目标</h2><p>stage2中在main文件下多了<code>hello-greet.h</code>和<code>hello-greet.cc</code>文件，对应的BUILD文件为：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">load</span>(<span class="string">&quot;@rules_cc//cc:defs.bzl&quot;</span>, <span class="string">&quot;cc_binary&quot;</span>, <span class="string">&quot;cc_library&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">cc_library</span>(</span><br><span class="line">    name = <span class="string">&quot;hello-greet&quot;</span>,</span><br><span class="line">    srcs = [<span class="string">&quot;hello-greet.cc&quot;</span>],</span><br><span class="line">    hdrs = [<span class="string">&quot;hello-greet.h&quot;</span>],</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="built_in">cc_binary</span>(</span><br><span class="line">    name = <span class="string">&quot;hello-world&quot;</span>,</span><br><span class="line">    srcs = [<span class="string">&quot;hello-world.cc&quot;</span>],</span><br><span class="line">    deps = [</span><br><span class="line">        <span class="string">&quot;:hello-greet&quot;</span>,</span><br><span class="line">    ],</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>在 load() 函数中，引入了 “cc_binary” 和 “cc_library” 规则，这里首先将<code>hello-greet.h</code>和<code>hello-greet.cc</code>编译成一个名为<code>hello-greet</code>的 library target ，然后在<code>hello-world</code>中将其作为依赖项写在<code>deps = []</code>中，因为他们与<code>hello-world.cc</code>在同级目录下，因此只需写成<code>:hello-greet</code>即可。编译方法与之前一样，这里不再赘述<br>当我们修改 <code>hello-greet.cc</code> 并重新构建项目，Bazel 只会重新编译该文件<br>stage2 的依赖图关系为：<br><img src="https://bazel.build/static/docs/images/cpp-tutorial-stage2.png" alt="hello-world关系依赖图"></p>
+<h2 id="stage3-构建多个软件包"><a href="#stage3-构建多个软件包" class="headerlink" title="stage3 构建多个软件包"></a>stage3 构建多个软件包</h2><p>在 stage3 的目录下有两个目录，每个目录都有自己的 <code>BUILD</code> 文件，因此工作区存在两个软件包： <code>lib</code>和<code>main</code><br>lib&#x2F;BUILD的文件为：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">load</span>(<span class="string">&quot;@rules_cc//cc:defs.bzl&quot;</span>, <span class="string">&quot;cc_library&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">cc_library</span>(</span><br><span class="line">    name = <span class="string">&quot;hello-time&quot;</span>,</span><br><span class="line">    srcs = [<span class="string">&quot;hello-time.cc&quot;</span>],</span><br><span class="line">    hdrs = [<span class="string">&quot;hello-time.h&quot;</span>],</span><br><span class="line">    visibility = [<span class="string">&quot;//main:__pkg__&quot;</span>],</span><br><span class="line">)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>main&#x2F;BUILD的文件为：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">load</span>(<span class="string">&quot;@rules_cc//cc:defs.bzl&quot;</span>, <span class="string">&quot;cc_binary&quot;</span>, <span class="string">&quot;cc_library&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">cc_library</span>(</span><br><span class="line">    name = <span class="string">&quot;hello-greet&quot;</span>,</span><br><span class="line">    srcs = [<span class="string">&quot;hello-greet.cc&quot;</span>],</span><br><span class="line">    hdrs = [<span class="string">&quot;hello-greet.h&quot;</span>],</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="built_in">cc_binary</span>(</span><br><span class="line">    name = <span class="string">&quot;hello-world&quot;</span>,</span><br><span class="line">    srcs = [<span class="string">&quot;hello-world.cc&quot;</span>],</span><br><span class="line">    deps = [</span><br><span class="line">        <span class="string">&quot;:hello-greet&quot;</span>,</span><br><span class="line">        <span class="string">&quot;//lib:hello-time&quot;</span>,</span><br><span class="line">    ],</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，主软件包<code>hello-world</code>目标依赖与 lib 软件包中的<code>hello-time</code>目标，这也是通过<code>deps</code>来让bazel知道<br>为了成功构建，我们需要使用可见性属性让 <code>lib/BUILD</code> 中的 <code>//lib:hello-time</code> 目标对 <code>main/BUILD</code> 中的目标显示可见，因为默认情况下，目标仅对同一 <code>BUILD</code> 文件中的其他目标可见<br>具体的做法是在 <code>hello-time</code> 的编译规则中加入了 <code>visibility</code> ,如下所示：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">visibility = [<span class="string">&quot;//main:__pkg__&quot;</span>]</span><br></pre></td></tr></table></figure>
+<p>stage3 的依赖图关系为：<br><img src="https://bazel.build/static/docs/images/cpp-tutorial-stage3.png" alt="hello-world关系依赖图"></p>
+<h1 id="常见-C-构建用例"><a href="#常见-C-构建用例" class="headerlink" title="常见 C++ 构建用例"></a>常见 C++ 构建用例</h1><p>Bazel build C++有多种规则，详情参考下面的链接：<br><a target="_blank" rel="noopener" href="https://bazel.build/reference/be/c-cpp#cc_library">Bazel C&#x2F;C++ 规则</a></p>
+<h2 id="在目标中包含多个文件"><a href="#在目标中包含多个文件" class="headerlink" title="在目标中包含多个文件"></a>在目标中包含多个文件</h2><p>可以使用 <code>glob</code> 在单个目标中包含多个文件，如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cc_library</span>(</span><br><span class="line">    name = <span class="string">&quot;build-all-the-files&quot;</span>,</span><br><span class="line">    srcs = <span class="built_in">glob</span>([<span class="string">&quot;*.cc&quot;</span>]),</span><br><span class="line">    hdrs = <span class="built_in">glob</span>([<span class="string">&quot;*.h&quot;</span>]),</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>Bazel在构建时会在包含此 <code>BUILD</code> 文件所在目录（不含子目录）中构建所有的 <code>.cc</code> 和 <code>.h</code> 文件</p>
+<h2 id="使用传递性包含"><a href="#使用传递性包含" class="headerlink" title="使用传递性包含"></a>使用传递性包含</h2><p>当我们在.h或者.cc&#x2F;.cpp文件包含某个target里面的.h文件时，我们就应该在deps中加上对该target的依赖，只有直接依赖项需要指定为依赖项，例如，在<code>sandwich.h</code>中 #include <code>bread.h</code>，在<code>bread.h</code>中 #include <code>flour.h</code> ，但是 <code>sandwich.h</code>中没有直接 #include <code>flour.h</code>，故 <code>BUILD</code> 文件如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cc_library</span>(</span><br><span class="line">    name = <span class="string">&quot;sandwich&quot;</span>,</span><br><span class="line">    srcs = [<span class="string">&quot;sandwich.cc&quot;</span>],</span><br><span class="line">    hdrs = [<span class="string">&quot;sandwich.h&quot;</span>],</span><br><span class="line">    deps = [<span class="string">&quot;:bread&quot;</span>],</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="built_in">cc_library</span>(</span><br><span class="line">    name = <span class="string">&quot;bread&quot;</span>,</span><br><span class="line">    srcs = [<span class="string">&quot;bread.cc&quot;</span>],</span><br><span class="line">    hdrs = [<span class="string">&quot;bread.h&quot;</span>],</span><br><span class="line">    deps = [<span class="string">&quot;:flour&quot;</span>],</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="built_in">cc_library</span>(</span><br><span class="line">    name = <span class="string">&quot;flour&quot;</span>,</span><br><span class="line">    srcs = [<span class="string">&quot;flour.cc&quot;</span>],</span><br><span class="line">    hdrs = [<span class="string">&quot;flour.h&quot;</span>],</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>在这里，sandwich 库依赖于 bread 库，后者依赖于 flour 库。虽然没有直接 include 但是我们可以使用在 flour 中定义的全局变量</p>
+<!-- ## 添加 include 路径 -->
 
-          
+<h2 id="包含外部库"><a href="#包含外部库" class="headerlink" title="包含外部库"></a>包含外部库</h2><p>以 Gtest 为例，如果我们想要使用Gtest ，只需在 <code>WORKSPACE</code> 文件添加代码库函数下载</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">load</span>(<span class="string">&quot;@bazel_tools//tools/build_defs/repo:http.bzl&quot;</span>, <span class="string">&quot;http_archive&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">http_archive</span>(</span><br><span class="line">  name = <span class="string">&quot;com_google_googletest&quot;</span>,</span><br><span class="line">  urls = [<span class="string">&quot;https://github.com/google/googletest/archive/609281088cfefc76f9d0ce82e1ff6c30cc3591e5.zip&quot;</span>],</span><br><span class="line">  strip_prefix = <span class="string">&quot;googletest-609281088cfefc76f9d0ce82e1ff6c30cc3591e5&quot;</span>,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>然后在需要使用 GTest 的 <code>BUILD</code> 的文件的 <code>deps</code> 中加上即可</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;@com_google_googletest//:gtest_main&quot;</span>,</span><br></pre></td></tr></table></figure>
 
+<h2 id="添加对预编译库的依赖关系"><a href="#添加对预编译库的依赖关系" class="headerlink" title="添加对预编译库的依赖关系"></a>添加对预编译库的依赖关系</h2><p>如果使用只包含已编译版本的库（例如头文件和 .so 文件），需要将其封装在 cc_library 规则中：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cc_library</span>(</span><br><span class="line">    name = <span class="string">&quot;mylib&quot;</span>,</span><br><span class="line">    srcs = [<span class="string">&quot;mylib.so&quot;</span>],</span><br><span class="line">    hdrs = [<span class="string">&quot;mylib.h&quot;</span>],</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>参考文献：<br><a target="_blank" rel="noopener" href="https://bazel.build/">bazel官网</a></p>
+
+                      
+
+                        
         </div>
-        <div class="clearfix"></div>
-    </header>
+        <div class="article-info article-info-index">
+          
+              
+                
+
+                  
+
+                      
+                        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/08/31/Bazel%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+                          
+                            <div class="clearfix"></div>
+        </div>
   </div>
 </article>
+
   
+<nav id="article-nav">
+  
+    <a href="/2022/09/16/C-11%E4%B9%8Bstd-function%E4%B8%8Estd-bind/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          C++11之std::function与std::bind
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/08/29/%E6%B5%85%E8%B0%88const%E5%9C%A8C-%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">浅谈const在C++中的使用</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/08/28/google-test-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
-  	<time datetime="2022-08-28T12:43:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-28</time>
-</a>
+      <aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/08/28/google-test-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Google Test 学习笔记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">gtest</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Bazel%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">Bazel简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Bazel%E7%9A%84%E4%BC%98%E7%82%B9"><span class="toc-number">1.1.</span> <span class="toc-text">Bazel的优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bazel%E7%9A%84%E4%B8%80%E4%BA%9B%E6%A6%82%E5%BF%B5"><span class="toc-number">1.2.</span> <span class="toc-text">Bazel的一些概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Workspace%EF%BC%88%E5%B7%A5%E4%BD%9C%E5%8C%BA%EF%BC%89"><span class="toc-number">1.2.1.</span> <span class="toc-text">Workspace（工作区）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Packages%EF%BC%88%E5%8C%85%EF%BC%89"><span class="toc-number">1.2.2.</span> <span class="toc-text">Packages（包）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Targets%EF%BC%88%E7%9B%AE%E6%A0%87%EF%BC%89"><span class="toc-number">1.2.3.</span> <span class="toc-text">Targets（目标）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#targets%E7%9A%84%E5%8F%AF%E8%A7%81%E6%80%A7%E7%AE%A1%E7%90%86"><span class="toc-number">1.2.4.</span> <span class="toc-text">targets的可见性管理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Bazel%E6%9E%84%E5%BB%BAC-%E9%A1%B9%E7%9B%AE"><span class="toc-number">2.</span> <span class="toc-text">使用Bazel构建C++项目</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#stage1-%E6%9E%84%E5%BB%BA%E5%8D%95%E4%B8%AA%E7%9B%AE%E6%A0%87"><span class="toc-number">2.1.</span> <span class="toc-text">stage1 构建单个目标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#stage2-%E6%9E%84%E5%BB%BA%E5%A4%9A%E4%B8%AA%E7%9B%AE%E6%A0%87"><span class="toc-number">2.2.</span> <span class="toc-text">stage2 构建多个目标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#stage3-%E6%9E%84%E5%BB%BA%E5%A4%9A%E4%B8%AA%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="toc-number">2.3.</span> <span class="toc-text">stage3 构建多个软件包</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81-C-%E6%9E%84%E5%BB%BA%E7%94%A8%E4%BE%8B"><span class="toc-number">3.</span> <span class="toc-text">常见 C++ 构建用例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E7%9B%AE%E6%A0%87%E4%B8%AD%E5%8C%85%E5%90%AB%E5%A4%9A%E4%B8%AA%E6%96%87%E4%BB%B6"><span class="toc-number">3.1.</span> <span class="toc-text">在目标中包含多个文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E4%BC%A0%E9%80%92%E6%80%A7%E5%8C%85%E5%90%AB"><span class="toc-number">3.2.</span> <span class="toc-text">使用传递性包含</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%85%E5%90%AB%E5%A4%96%E9%83%A8%E5%BA%93"><span class="toc-number">3.3.</span> <span class="toc-text">包含外部库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%AF%B9%E9%A2%84%E7%BC%96%E8%AF%91%E5%BA%93%E7%9A%84%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB"><span class="toc-number">3.4.</span> <span class="toc-text">添加对预编译库的依赖关系</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/08/27/static%E5%85%B3%E9%94%AE%E5%AD%97%E5%9C%A8C-%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2022-08-27T08:44:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/08/27/static%E5%85%B3%E9%94%AE%E5%AD%97%E5%9C%A8C-%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8/">static关键字在C++中的使用</a>
-    </h1>
-  
+        
+    </div>
+</aside>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">static</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
+        
           
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+                
 
-    
+                      
 
+                            
 
+                                
+                                      
           </div>
         </div>
       </div>
@@ -326,9 +429,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
