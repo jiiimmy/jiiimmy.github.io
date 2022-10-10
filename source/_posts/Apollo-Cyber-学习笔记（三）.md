@@ -1020,7 +1020,7 @@ class RtpsReceiver : public Receiver<M> {
 };
 ```
 不同的 receiver 都拥有自己的 DispatcherPtr，其余实现基本一样
-# hybrid_receiver.h
+## hybrid_receiver.h
 ```c++
 template <typename M>
 class HybridReceiver : public Receiver<M> {
@@ -1548,6 +1548,7 @@ void IntraDispatcher::RemoveListener(const RoleAttributes& self_attr,
 }
 ```
 RemoveListener 先调用 Dispatcher 类的 RemoveListener 接口，再调用 chain_ 的 RemoveListener 接口
+
 ```c++
 class ChannelChain {
   using BaseHandlersType =
@@ -1725,7 +1726,151 @@ class ChannelChain {
   base::AtomicRWLock oppo_rw_lock_;
 };
 ```
-ChannelChain 类接口在类内实现
+ChannelChain 类接口在类内实现，其对外的接口主要为 AddListener, RemoveListener, Run
+AddListener 主要就是去查找 channel_id 对应的 handler ，然后调用其 Connect 接口 ， RemoveListener 就是 Disconnect channel_id 对应的handler
+Run 也是先处理一下消息，然后调用对应 handler 的 Run 或 RunFromString 接口
 
+## rtps_dispatcher.h
+```c++
+struct Subscriber {
+  Subscriber() : sub(nullptr), sub_listener(nullptr) {}
 
+  eprosima::fastrtps::Subscriber* sub;
+  SubListenerPtr sub_listener;
+};
+
+class RtpsDispatcher;
+using RtpsDispatcherPtr = RtpsDispatcher*;
+
+class RtpsDispatcher : public Dispatcher {
+ public:
+  virtual ~RtpsDispatcher();
+
+  void Shutdown() override;
+
+  template <typename MessageT>
+  void AddListener(const RoleAttributes& self_attr,
+                   const MessageListener<MessageT>& listener);
+
+  template <typename MessageT>
+  void AddListener(const RoleAttributes& self_attr,
+                   const RoleAttributes& opposite_attr,
+                   const MessageListener<MessageT>& listener);
+
+  void set_participant(const ParticipantPtr& participant) {
+    participant_ = participant;
+  }
+
+ private:
+  void OnMessage(uint64_t channel_id,
+                 const std::shared_ptr<std::string>& msg_str,
+                 const MessageInfo& msg_info);
+  void AddSubscriber(const RoleAttributes& self_attr);
+  // key: channel_id
+  std::unordered_map<uint64_t, Subscriber> subs_;
+  std::mutex subs_mutex_;
+
+  ParticipantPtr participant_;
+
+  DECLARE_SINGLETON(RtpsDispatcher)
+};
+
+template <typename MessageT>
+void RtpsDispatcher::AddListener(const RoleAttributes& self_attr,
+                                 const MessageListener<MessageT>& listener) {
+  auto listener_adapter = [listener](
+                              const std::shared_ptr<std::string>& msg_str,
+                              const MessageInfo& msg_info) {
+    auto msg = std::make_shared<MessageT>();
+    RETURN_IF(!message::ParseFromString(*msg_str, msg.get()));
+    listener(msg, msg_info);
+  };
+
+  Dispatcher::AddListener<std::string>(self_attr, listener_adapter);
+  AddSubscriber(self_attr);
+}
+
+template <typename MessageT>
+void RtpsDispatcher::AddListener(const RoleAttributes& self_attr,
+                                 const RoleAttributes& opposite_attr,
+                                 const MessageListener<MessageT>& listener) {
+  auto listener_adapter = [listener](
+                              const std::shared_ptr<std::string>& msg_str,
+                              const MessageInfo& msg_info) {
+    auto msg = std::make_shared<MessageT>();
+    RETURN_IF(!message::ParseFromString(*msg_str, msg.get()));
+    listener(msg, msg_info);
+  };
+
+  Dispatcher::AddListener<std::string>(self_attr, opposite_attr,
+                                       listener_adapter);
+  AddSubscriber(self_attr);
+}
+void RtpsDispatcher::Shutdown() {
+  if (is_shutdown_.exchange(true)) {
+    return;
+  }
+
+  {
+    std::lock_guard<std::mutex> lock(subs_mutex_);
+    for (auto& item : subs_) {
+      item.second.sub = nullptr;
+    }
+  }
+
+  participant_ = nullptr;
+}
+
+void RtpsDispatcher::AddSubscriber(const RoleAttributes& self_attr) {
+  if (participant_ == nullptr) {
+    return;
+  }
+
+  uint64_t channel_id = self_attr.channel_id();
+  std::lock_guard<std::mutex> lock(subs_mutex_);
+  if (subs_.count(channel_id) > 0) {
+    return;
+  }
+
+  Subscriber new_sub;
+  eprosima::fastrtps::SubscriberAttributes sub_attr;
+  auto& qos = self_attr.qos_profile();
+  RETURN_IF(!AttributesFiller::FillInSubAttr(self_attr.channel_name(), qos,
+                                             &sub_attr));
+
+  new_sub.sub_listener = std::make_shared<SubListener>(
+      std::bind(&RtpsDispatcher::OnMessage, this, std::placeholders::_1,
+                std::placeholders::_2, std::placeholders::_3));
+
+  new_sub.sub = eprosima::fastrtps::Domain::createSubscriber(
+      participant_->fastrtps_participant(), sub_attr,
+      new_sub.sub_listener.get());
+  RETURN_IF_NULL(new_sub.sub);
+  subs_[channel_id] = new_sub;
+}
+
+void RtpsDispatcher::OnMessage(uint64_t channel_id,
+                               const std::shared_ptr<std::string>& msg_str,
+                               const MessageInfo& msg_info) {
+  if (is_shutdown_.load()) {
+    return;
+  }
+
+  ListenerHandlerBasePtr* handler_base = nullptr;
+  if (msg_listeners_.Get(channel_id, &handler_base)) {
+    auto handler =
+        std::dynamic_pointer_cast<ListenerHandler<std::string>>(*handler_base);
+    handler->Run(msg_str, msg_info);
+  }
+}
+
+```
+MessageListener 是一个封装回调函数的 function 对象，定义为：
+```c++
+template <typename MessageT>
+using MessageListener =
+    std::function<void(const std::shared_ptr<MessageT>&, const MessageInfo&)>;
+```
+AddListener 中将 listener 进行了适配，先将 str 反序列化为 MessageT 的对象，再调用 listener。其调用的是基类的 AddListener 接口，然后调用 AddSubscriber 接口。
+AddSubscriber 会创建一个新的 Subscriber 对象，并将 OnMessage 函数分装成回调函数，然后记录在 subs_ 的 map 中， OnMessage 会在 msg_isteners_ 中查找 channel_id 对应的 handler，如果有则调用其 Run 函数
 
