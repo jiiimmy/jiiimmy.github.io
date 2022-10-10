@@ -74,7 +74,7 @@ thread 2 is working !!
 
 std::atomic_flag不支持拷贝和赋值等操作，因为这两个操作设计到两个对象，必定不是原子操作
 
-std::atomic_flag类型不提供is_lock_free。该类型是一个简单的布尔标志，并且在这种类型上的操作都是无锁的，但是std::atomic_flag的可操作性不强，导致其应用具有局限性，不如std::atomic\<bool>
+std::atomic_flag类型不提供is_lock_free()。该类型是一个简单的布尔标志，并且在这种类型上的操作都是无锁的，但是std::atomic_flag的可操作性不强，导致其应用具有局限性，不如std::atomic\<bool>
 
 
 # std::atomic
@@ -85,3 +85,82 @@ weak() 和 compare_exchange_strong()
 - **载入**(load) 操作：可以包括 memory_order_relaxed, memory_order_consume, memory_order_acquire 或 memory_order_seq_cst 顺序
 - **读-修改-写**(read-modify-write) 操作：可以包括 memory_order_relaxed, memory_order_consume, memory_order_acquire, memory_order_release, memory_order_acq_rel 或 memory_order_seq_cst 顺序
 所有操作的默认顺序为 memory_order_seq_cst
+
+## std::atomic<bool>
+std::atomic\<bool> 是最基本的原子整数类型 ，这是一个比 std::atomic_flag 功能更全的布尔标志，虽然它仍不可进行拷贝构造和拷贝赋值，但是可以从一个非原子的 bool来构造，也可以用一个非原子的 bool 值来对其赋值
+```c++
+std::atomic<bool> b(true);
+b = false;
+```
+从非原子的 bool 进行赋值操作并非向其赋值的对象返回一个引用，它返回的是具有所赋值的 bool。这对于原子类型是另一种常见的模式，它们所支持的赋值操作符返回的是**值**（属于相应的非原子类型）而**不是引用**。
+如果返回的是原子变量的引用，所有依赖于赋值结果的代码将显式地载人该值，可能会获取被另一线程修改的结果。通过以非原子值的形式返回赋值结果，可以避免这种额外的载人。
+看下面一段代码：
+```c++
+#include <atomic>
+#include <iostream>
+int main() {
+  std::atomic<bool> b;
+  bool x = b.load(std::memory_order_acquire);
+  std::cout << "x = " <<x <<std::endl;
+  b.store(true);
+  x = b.exchange(false, std::memory_order_acq_rel);
+  std::cout << "x = " <<x <<std::endl;
+  std::cout << "b = " << b.load() <<std::endl;
+  
+  return 0;
+}
+```
+程序的输出为：
+```shell
+x = 0
+x = 1
+b = 0
+```
+从输出我们可以看到 std::atomic\<bool> 的默认构造是赋值false， store() 和 exchange() 的区别是 store() 只负责写，不管原来是什么， exchange()会读原来的数据，然后修改并写成新数据，最后返回原数据
+
+exchange()并非 std::atomic\<bool>唯一支持的读-修改-写操作，它还引入了**比较/交换**的操作，用于在当前值与期望值相等时，存储新的值。对应的成员函数为 compare_exchange_weak() 和 compare_exchange_strong()。它比较原子变量值和所提供的期望值，如果两者**相等**，则**存储提供的期望值**。如果两者不等，则**期望值更新为原子变量的实际值**。比较/交换函数的返回值类型为bool，如果执行了存储则返回true，否则为false
+
+<!-- 对于 compare_exchange_weak() -->
+
+## std::atomic<T*>
+对于某种类型 T 的指针的原子形式是 std::atomic\<T*>，其接口基本上与 std::atomic\<bool>是相同的，只不过它对相应的指针类型的值进行操作而非 bool 值。它也不能拷贝构造和拷贝赋值，虽然它可以从合适的指针值中构造和赋值。和必须的 is_lock_free()成员函数一样， std:: atomic\<T*>也有 load()、 store()、 exchange()、compare_exchange_weak()和 compare_exchange_strong()成员函数，具有和std::atomic\<bool>>相似的语义，也是接受和返回 T* 而不是 bool 。
+
+std::atomic\<T*>提供的新操作是指针算数运算，这种基本的操作是由 fetch_add()和 fetch_sub()成员函数提供的，可以在所存储的地址上进行原子加法和减法，+=, -= 带 ++ 和 -- 前缀与后缀的自增自减等运算符，都提供了方便的封装 。
+fetch_add() 和 fetch_sub() 有细微的区别，他们返回的**都是值而不是引用**，对于 x.fetch_add(3) 会将 x 更新为指向第四个值，但是返回一个指向数组中第一个值的指针。而 x.fetch_sub(2) 会将 x 更新为前两个值，返回的是 x 实际指针的值，看下面一段代码：
+```c++
+#include <atomic>
+#include <iostream>
+int main() {
+  class Foo {};
+  Foo some_array[5];
+  std::atomic<Foo *> p(some_array);
+  std::cout << "a    ptr = " << some_array << std::endl;
+  Foo *x = p.fetch_add(2);
+  std::cout << "x    ptr = " << x << std::endl;
+  std::cout << "p    ptr = " << p.load() << std::endl;
+  std::cout << "a[2] ptr = " << &(some_array[2]) << std::endl;
+  std::cout << "--------" << std::endl;
+  x = (p -= 1);
+  std::cout << "x    ptr = " << x << std::endl;
+  std::cout << "p    ptr = " << p.load() << std::endl;
+  std::cout << "a[1] ptr = " << &(some_array[1]) << std::endl;
+  
+  return 0;
+}
+```
+程序的输出为：
+```shell
+a    ptr = 0x7ffcd0933de3
+x    ptr = 0x7ffcd0933de3
+p    ptr = 0x7ffcd0933de5
+a[2] ptr = 0x7ffcd0933de5
+--------
+x    ptr = 0x7ffcd0933de4
+p    ptr = 0x7ffcd0933de4
+a[1] ptr = 0x7ffcd0933de4
+```
+从上面代码的输出能够看出 fetch_add()和 fetch_sub() 的细微差异， 同时这两个函数也允许内存顺序语义作为一个额外的函数调用参数
+
+## std::atomic<>初级类模板
+初级模板的存在允许用户创建一个用户定义的类型的原子变种。但是该类型必须满足一定的准则。为了对用户定义类型 UDT 使用 std::atomic\<UDT>，这种类型必须有一个平凡的(trivial) 拷贝赋值运算符。这意味着该类型不得拥有任何虚函数或虚基类，并且必须使用编译器生成的拷贝赋值运算符。不仅如此，一个用户定义类型的每个基类和非静态数据成员也都必须有一个平凡的拷贝赋值运算符。这实质上允许编译器将 memcpy() 或一个等价的操作用于赋值操作，因为没有用户编写的代码要运行。
+最后，该类型必须是按位相等可比较的。即必须能够使用 memcmp() 比较实例是否相等。为了使比较／交换操作能够工作，这个保证是必需的。
