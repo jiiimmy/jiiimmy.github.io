@@ -1,7 +1,7 @@
 ---
 title: Bazel学习笔记
 date: 2022-08-31 17:30:01
-tags:
+tags: ["bazel"]
 ---
 
 # Bazel简介
