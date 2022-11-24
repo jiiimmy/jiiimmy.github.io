@@ -87,6 +87,7 @@ git log的作用主要是显示所有的历史commit，不带参数使用时，�
 - \--author= 按作者查找，如 `git log author="WeiZheng"` ，作者名不需要精确匹配，只需要包含就行了，同时还支持正则表达式
 - \--grep= 按commit描述查找，如`git log --grep "bug fix"`，可以传入-i来忽略大小写。如果想同时使用--grep和--author，必须在附加一个--all-match参数
 - \--(空格) file1 file2 按文件来查找
+- \--oneline 查看简洁的版本
 还有其他的参数，具体可以参考这篇博客
 [git log解析](https://www.cnblogs.com/bellkosmos/p/5923439.html)
 
@@ -129,3 +130,106 @@ git stash drop stash@{num}
 ```shell
 git stash clear
 ```
+
+# git clone
+使用 `git clone` 可以从现有的 Git 仓库中拷贝项目，命令格式为：
+```shell
+git clone <repo>
+```
+如：
+```shell
+git clone https://github.com/sogou/workflow.git
+```
+此时默认拷贝到运行 shell 命令所在的目录，如果要克隆到指定的目录，可以使用以下格式：
+```shell
+git clone <repo> <directory>
+```
+repo为仓库地址，directory为本地目录如
+```shell
+git clone https://github.com/sogou/workflow.git ~/my_repo
+```
+执行该命令后，会在当前目录下创建一个名为 my_repo 的目录，其中包含一个 .git 的目录，用于保存下载下来的所有版本记录
+
+# Git配置
+git 的设置使用 `git config` 命令，显示当前的 git 配置信息：
+```shell
+git config --list
+```
+编辑**当前**仓库的 git 配置文件
+```shell
+git config -e
+```
+编辑**系统上所有**仓库的 git 配置文件
+```shell
+git config -e --global
+```
+设置提交代码时的用户信息（去掉 --global 只对当前仓库有效）：
+```
+git config --global user.name "user"
+git config --global user.email user@email.com
+
+```
+
+# git diff
+## 工作区和暂存区之间的差异
+git diff 用来显示工作区与暂存区之前的差异，指令为：
+```shell
+git diff
+```
+这个指令显示的是详细的差异，比如是某个文件的某些行有变化，有时候会很多很杂乱，可以加 --stat 来直接显示哪些文件有那些变化（添加 or 删除），即：
+```shell
+git diff --stat
+```
+想单独查看某个文件具体改动内容可以在git diff后加文件名，即：
+```shell
+git diff path_to_file
+```
+
+## 工作区与版本库之间的差异
+查看工作区与版本库之间的差异的指令为：
+```shell
+git diff HEAD  
+or
+git diff commit-id
+```
+注意这两者的细微区别。当本地修改了3个文件，使用 git add 其中一个后，使用 `git diff --stat` 只会显示未 add 到暂存区的两个文件的不同，而使用 `git diff HEAD --stat` 则会显示尚未提交到版本库的3个文件的不同
+
+## 暂存区和版本库之间的差异
+如果要查看暂存区和版本库之间的差异，则需要添加 --cached ,如：
+```shell
+git diff --cached HEAD
+or
+git diff --cached commit-id
+```
+比较暂存区某个具体文件与版本库之间的差异：
+```shell
+git diff --cached HEAD path_to_file
+or
+git diff --cached commit-id path_to_file
+```
+其他的指令如 --stat 也可以组合使用
+
+## 版本库之间提交记录的差异
+查看版本库不同commit的所有差异指令为：
+```shell
+git diff commit-id commit-id
+```
+查看不同commit的某个文件的差异指令为：
+```shell
+git diff commit-id commit-id path_to_file
+```
+
+## 不同分支之间的比较
+查看不同分支的差异指令为：
+```shell
+git diff branch1 branch2
+```
+查看不同分支文件的差异指令为：
+```shell
+git diff branch1 branch2 path_to_file
+```
+
+# git merge
+
+
+# git rebase

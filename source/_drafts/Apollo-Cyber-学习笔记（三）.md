@@ -1874,3 +1874,201 @@ using MessageListener =
 AddListener 中将 listener 进行了适配，先将 str 反序列化为 MessageT 的对象，再调用 listener。其调用的是基类的 AddListener 接口，然后调用 AddSubscriber 接口。
 AddSubscriber 会创建一个新的 Subscriber 对象，并将 OnMessage 函数分装成回调函数，然后记录在 subs_ 的 map 中， OnMessage 会在 msg_isteners_ 中查找 channel_id 对应的 handler，如果有则调用其 Run 函数
 
+# shm_dispatcher.h
+```c++
+class ShmDispatcher;
+using ShmDispatcherPtr = ShmDispatcher*;
+using apollo::cyber::base::AtomicRWLock;
+using apollo::cyber::base::ReadLockGuard;
+using apollo::cyber::base::WriteLockGuard;
+
+class ShmDispatcher : public Dispatcher {
+ public:
+  // key: channel_id
+  using SegmentContainer = std::unordered_map<uint64_t, SegmentPtr>;
+
+  virtual ~ShmDispatcher();
+
+  void Shutdown() override;
+
+  template <typename MessageT>
+  void AddListener(const RoleAttributes& self_attr,
+                   const MessageListener<MessageT>& listener);
+
+  template <typename MessageT>
+  void AddListener(const RoleAttributes& self_attr,
+                   const RoleAttributes& opposite_attr,
+                   const MessageListener<MessageT>& listener);
+
+ private:
+  void AddSegment(const RoleAttributes& self_attr);
+  void ReadMessage(uint64_t channel_id, uint32_t block_index);
+  void OnMessage(uint64_t channel_id, const std::shared_ptr<ReadableBlock>& rb,
+                 const MessageInfo& msg_info);
+  void ThreadFunc();
+  bool Init();
+
+  uint64_t host_id_;
+  SegmentContainer segments_;
+  std::unordered_map<uint64_t, uint32_t> previous_indexes_;
+  AtomicRWLock segments_lock_;
+  std::thread thread_;
+  NotifierPtr notifier_;
+
+  DECLARE_SINGLETON(ShmDispatcher)
+};
+
+template <typename MessageT>
+void ShmDispatcher::AddListener(const RoleAttributes& self_attr,
+                                const MessageListener<MessageT>& listener) {
+  auto listener_adapter = [listener](const std::shared_ptr<ReadableBlock>& rb,
+                                     const MessageInfo& msg_info) {
+    auto msg = std::make_shared<MessageT>();
+    RETURN_IF(!message::ParseFromArray(
+        rb->buf, static_cast<int>(rb->block->msg_size()), msg.get()));
+    listener(msg, msg_info);
+  };
+
+  Dispatcher::AddListener<ReadableBlock>(self_attr, listener_adapter);
+  AddSegment(self_attr);
+}
+
+template <typename MessageT>
+void ShmDispatcher::AddListener(const RoleAttributes& self_attr,
+                                const RoleAttributes& opposite_attr,
+                                const MessageListener<MessageT>& listener) {
+  auto listener_adapter = [listener](const std::shared_ptr<ReadableBlock>& rb,
+                                     const MessageInfo& msg_info) {
+    auto msg = std::make_shared<MessageT>();
+    RETURN_IF(!message::ParseFromArray(
+        rb->buf, static_cast<int>(rb->block->msg_size()), msg.get()));
+    listener(msg, msg_info);
+  };
+
+  Dispatcher::AddListener<ReadableBlock>(self_attr, opposite_attr,
+                                         listener_adapter);
+  AddSegment(self_attr);
+}
+
+ShmDispatcher::ShmDispatcher() : host_id_(0) { Init(); }
+
+ShmDispatcher::~ShmDispatcher() { Shutdown(); }
+
+void ShmDispatcher::Shutdown() {
+  if (is_shutdown_.exchange(true)) {
+    return;
+  }
+
+  if (thread_.joinable()) {
+    thread_.join();
+  }
+
+  {
+    ReadLockGuard<AtomicRWLock> lock(segments_lock_);
+    segments_.clear();
+  }
+}
+
+void ShmDispatcher::AddSegment(const RoleAttributes& self_attr) {
+  uint64_t channel_id = self_attr.channel_id();
+  WriteLockGuard<AtomicRWLock> lock(segments_lock_);
+  if (segments_.count(channel_id) > 0) {
+    return;
+  }
+  auto segment = SegmentFactory::CreateSegment(channel_id);
+  segments_[channel_id] = segment;
+  previous_indexes_[channel_id] = UINT32_MAX;
+}
+
+void ShmDispatcher::ReadMessage(uint64_t channel_id, uint32_t block_index) {
+  auto rb = std::make_shared<ReadableBlock>();
+  rb->index = block_index;
+  if (!segments_[channel_id]->AcquireBlockToRead(rb.get())) {
+    return;
+  }
+
+  MessageInfo msg_info;
+  const char* msg_info_addr =
+      reinterpret_cast<char*>(rb->buf) + rb->block->msg_size();
+
+  if (msg_info.DeserializeFrom(msg_info_addr, rb->block->msg_info_size())) {
+    OnMessage(channel_id, rb, msg_info);
+  }
+  segments_[channel_id]->ReleaseReadBlock(*rb);
+}
+
+void ShmDispatcher::OnMessage(uint64_t channel_id,
+                              const std::shared_ptr<ReadableBlock>& rb,
+                              const MessageInfo& msg_info) {
+  if (is_shutdown_.load()) {
+    return;
+  }
+  ListenerHandlerBasePtr* handler_base = nullptr;
+  if (msg_listeners_.Get(channel_id, &handler_base)) {
+    auto handler = std::dynamic_pointer_cast<ListenerHandler<ReadableBlock>>(
+        *handler_base);
+    handler->Run(rb, msg_info);
+  }
+}
+
+void ShmDispatcher::ThreadFunc() {
+  ReadableInfo readable_info;
+  while (!is_shutdown_.load()) {
+    if (!notifier_->Listen(100, &readable_info)) {
+      continue;
+    }
+
+    if (readable_info.host_id() != host_id_) {
+      continue;
+    }
+
+    uint64_t channel_id = readable_info.channel_id();
+    uint32_t block_index = readable_info.block_index();
+
+    {
+      ReadLockGuard<AtomicRWLock> lock(segments_lock_);
+      if (segments_.count(channel_id) == 0) {
+        continue;
+      }
+      // check block index
+      if (previous_indexes_.count(channel_id) == 0) {
+        previous_indexes_[channel_id] = UINT32_MAX;
+      }
+      uint32_t& previous_index = previous_indexes_[channel_id];
+      if (block_index != 0 && previous_index != UINT32_MAX) {
+        if (block_index == previous_index) {
+          ADEBUG << "Receive SAME index " << block_index << " of channel "
+                 << channel_id;
+        } else if (block_index < previous_index) {
+          ADEBUG << "Receive PREVIOUS message. last: " << previous_index
+                 << ", now: " << block_index;
+        } else if (block_index - previous_index > 1) {
+          ADEBUG << "Receive JUMP message. last: " << previous_index
+                 << ", now: " << block_index;
+        }
+      }
+      previous_index = block_index;
+
+      ReadMessage(channel_id, block_index);
+    }
+  }
+}
+
+bool ShmDispatcher::Init() {
+  host_id_ = common::Hash(GlobalData::Instance()->HostIp());
+  notifier_ = NotifierFactory::CreateNotifier();
+  thread_ = std::thread(&ShmDispatcher::ThreadFunc, this);
+  scheduler::Instance()->SetInnerThreadAttr("shm_disp", &thread_);
+  return true;
+}
+```
+AddListener 的操作和 rtps 的基本一致，只是在最后调用的是 AddSegment 函数
+构造函数中主要是调用 Init 函数， Init 函数主要做了以下事情：
+- 设置 host_id_
+- 从 NotifierFactory 中创建 notifier_
+- 为 ShmDispatcher::ThreadFunc 函数建立一个线程，并放到scheduler中
+
+AddSegment 函数根据 channel_id 去 SegmentFactory 创建一个 Segment，并保存在 segments_ 中
+ReadMessage 首先去获得 Segment 的读锁，然后去读取数据将消息反序列化成 MessageInfo，再调用 OnMessage 函数，最后去释放读锁
+OnMessage 首先根据 channel_id 获得对应的 ListenerHandler, 然后调用其 Run 接口
+ThreadFunc 的作用主要是当 notifier_ Listen收到消息时，记录 index 在 previous_indexes_ 中，然后调用 ReadMessage 接口
