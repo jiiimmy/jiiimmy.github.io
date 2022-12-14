@@ -6,3 +6,6 @@ node_modules/
 public/
 .deploy*/
 _multiconfig.yml
+test_code/
+.ccls-cache/
+.vscode/
