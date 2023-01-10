@@ -3,6 +3,7 @@ title: SQLite学习笔记（二）
 tags:
 ---
 
+本篇博客继续学习SQLite相关语句
 <!-- more -->
 # SQLite 创建数据库
 在任一目录下，sqlite3 创建命令的基本语法如下：
