@@ -6,7 +6,7 @@ tags: ["c++","function"]
 
 简介：c++11中新引入的std::function是一个可调用对象包装器，它是一个类模板，可以容纳除了类成员函数指针之外的所有可调用对象，它可以用统一的方式处理函数、函数对象、函数指针、lambda表达式以及std::bind对象等，并允许保存和延迟它们的执行。
 <!-- more -->
-使用时需要包括头文件 <functional>
+使用时需要包括头文件 \<functional>
 
 # std::function
 
