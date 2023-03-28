@@ -38,8 +38,7 @@ first.cpp 文件用来计算输入程序数字的平方根并打印出来，代�
 #include <iostream>
 #include <string>
 
-void CalculateSqrt(const double &val) {
-  const double res = sqrt(val);
+v  const double res = sqrt(val);
   std::cout << "The square root of " << val << " is " << res << std::endl;
   return;
 }
