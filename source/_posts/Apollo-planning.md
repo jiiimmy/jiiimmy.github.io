@@ -1,8 +1,11 @@
 ---
 title: Apollo planning
 date: 2023-01-18 14:12:54
-tags:
+tags: ["planning"]
 ---
+
+这篇博客解析百度阿波罗里面的轨迹规划
+<!-- more -->
 
 轨迹规划(Trajectories Planning)主要指考虑实际临时或者动态障碍物，考虑速度，动力学约束的情况下，尽量按照规划路径进行轨迹规划
 
